@@ -106,6 +106,7 @@ April 2022
 ### About the framework
 
 * Outcome of several applied macroprudential modeling projects
+	* Diverse economies and financial systems motivated large number of extensions
 * Focus primarily on __production__, not theoretical insights
   * Motivated by insights from DSGE models (e.g. MAPMOD)
   * But flexible semi-structural approach for practical reasons
@@ -131,14 +132,10 @@ April 2022
 ### Key modeling principles, cont.
 
 * __Explicit__ description of balance sheets
-  * Need good description how balance sheets increase / shrink and implications of that for macroeconomy
-  * Non-trivial, money and deposit creation are often understudied
   * Gross positions matter, not just net positions
-* Stock-flow consistency:
-<article>
-  * Proper link between stocks (wealth, credit stock, assets / liabilities) and flows (GDP, credit creation, defaults / repayments)
-    </article>
-* Important role of non-linearities
+* __Stock-flow consistency__:
+  * Stocks (wealth, credit stock, assets / liabilities) vs flows (GDP, credit creation, defaults / repayments)
+* Important role of __non-linearities__
   * Necessary to render macroprudential policy relevant and useful
   * Important to describe real-world events
 
@@ -146,11 +143,12 @@ April 2022
 
 ### Focus on application
 
-* MESSr is a semi-structural framework
+* MESSr is a __semi-structural__ framework
+* Not DSGE with explicit microdoundations, but
   * Explicit concepts of demand and supply (e.g. for credit)
   * Endogenous expectations (can drive financial cycles)
-  * Model brought to data, provide data-consistent simulations (as opposed to purely theoretical simulations)
-* Integration and aggregation of several types of risk
+* Model __brought to data__, provide data-consistent simulations (as opposed to purely theoretical simulations)
+* __Integration and aggregation__ of several types of risk
 * Flexibility to describe various structures of financial system
   * Primary focus on banks, but also other intermediaries too
 
@@ -159,21 +157,22 @@ April 2022
 ### Not just a model
 
 * Model itself is not enough
-* Need infrastructure for regular, streamlined production of outputs
+* Need __infrastructure__ for regular, streamlined production of outputs
   * Feeding data to the model
   * Streamlined processing of macro inputs
   * Reporting, communication of results
-* Ability to build scenarios on top of (externally provided) baseline
+* Ability to build __scenarios__ on top of (externally provided) baseline
 * Motivated by experience from and focus on practical applications
 
 ---
 
-### Differences from other macropru frameworks
+### Differences from other macroprudential frameworks
 
-* No endogenous macroprudential policy reaction function
+* There is **no endogenous** macroprudential policy reaction function
+	* But we can analyze a range of policy interventions, incl. capital buffers, LTVs, credit caps, ...
 * No detailed description of individual banks
-* Focus on scenario analysis, not forecasting
-* Focus on robust policy vs optimal policy
+* Focus on **scenario analysis**, not forecasting
+* Focus on **robust policy** vs optimal policy
 
 
 
@@ -189,10 +188,10 @@ April 2022
 
 |                   | Assets                         |            Liabilities |                   |
 | :---------------- | :----------------------------- | ---------------------: | ----------------: |
-| $\xle$              | Net loans                      | Non-equity liabilities |               \xd |
-| $+\ \sum \xl^{\,k}$ | *Gross loans*                  |       *Local currency* |  d_t^{\,\xlcy}\ + |
-| $ -\ \sum \xall^k $  | *Allowances for credit losses* |     *Foreign currency* | d_t^{\,\xfcy} \ + |
-| $\xona$             | Other net assets               |           Bank capital |                bk |
+| $\xle$              | Net loans                      | Non-equity liabilities |               $\xd$ |
+| $+\ \sum \xl^{\,k}$ | *Gross loans*                  |       *Local currency* |  $d_t^{\,\xlcy}\ +$ |
+| $-\ \sum \xall^k$  | *Allowances for credit losses* |     *Foreign currency* | $d_t^{\,\xfcy} \ +$ |
+| $\xona$             | Other net assets               |           Bank capital |                $bk$ |
 
 * We allow for:
   * Loan portfolio segmentation (mortgages, consumer credit, ...)
@@ -204,7 +203,7 @@ April 2022
 
 * For each loan segment, the model keeps track of performing loans, non-performing loans, allowances...
 
-*Simplified life cycle of a representative loan*
+**Simplified life cycle of a representative loan**
 
 ![credit-risk-loan-performance](credit-risk-loan-performance.png)
 
@@ -212,7 +211,7 @@ April 2022
 
 ### Explicit modeling of bank capital, P&L
 
-![bank-capital|900](bank-capital.png)
+![bank-capital|750](bank-capital.png)
 
 ---
 
@@ -221,7 +220,7 @@ April 2022
 * New allowances (provisions) are created based on expected (forward-looking) loss
 * We can also model provisions based on incurred (backward-looking) loss
 
-*Dynamics of allowances*
+**Dynamics of allowances**
 
 ![allowances-stock-flow](allowances-stock-flow.png)
 
@@ -231,19 +230,17 @@ April 2022
 
 __Reduced-form approach__
 
-Provides little insight into demand and supply forces in the credit market
+![Reduced form credit creation|700](reduced-form-credit-creation.png)
 
-<img src="reduced-form-credit-creation.png" alt="Reduced-form credit creation" style="zoom:45%;" />
-
-
-
-__Semistructural approach__
-
-Motivated by insights from DSGE models, provides more insight. Our approach
+Provides little insight into demand and supply forces in the credit market.
 
 
+__Our approach__
 
-![Semistructural credit creation](structural-credit-creation.png)
+
+![Semistructural credit creation|700](structural-credit-creation.png)
+Motivated by insights from DSGE models.
+
 
 ---
 
@@ -255,15 +252,13 @@ Motivated by insights from DSGE models, provides more insight. Our approach
 
 ### Credit supply - lending conditions
 
-* Key component of the model
-
-![new-lending-conditions|300](new-lending-conditions.png)
+![new-lending-conditions|750](new-lending-conditions.png)
 
 ---
 
 ### Stock lending rate vs new lending rate
 
-![lending-rates-stock-flow](lending-rates-stock-flow.png)
+![lending-rates-stock-flow|750](lending-rates-stock-flow.png)
 
 ---
 
