@@ -127,13 +127,14 @@ body {
     text-align: center;
 }
 
+.reveal h3::before,
 .markdown-preview-view h3::before {
     content: "gi";
     background-color: var(--color-accent);
     color: var(--color-text);
     float: right;
-    padding: 0.37em 0.55em 0.37em 0.55em;
-    font-size: 80%;
+    padding: 0.4em 0.55em 0.4em 0.55em;
+    font-size: 75%;
 }
 
 
@@ -226,11 +227,28 @@ body {
     display: none;
 }
 
-.reveal li {
-    margin-bottom: 0.75em;
+.markdown-preview-view section > ul > li, 
+.reveal section > ul > li {
+    margin-top: 1.5em;
 }
 
-.reveal li ul {
-    margin-top: 0.75em;
+.markdown-preview-view section > ul > li li,
+.reveal section > ul > li li {
+    margin-top: 0.5em;
+}
+
+.markdown-preview-view li > ul,
+.markdown-preview-view li > ol,
+.reveal li > ul,
+.reveal li > ol {
+    padding-inline-start: 80px;
+    margin-left: 0px;
+    border-left: 1px solid var(--color-accent);
+    padding-left: 40px;
+}
+
+.markdown-rendered.show-indentation-guide li > ol::before,
+.markdown-rendered.show-indentation-guide li > ul::before {
+    content: none;
 }
 
