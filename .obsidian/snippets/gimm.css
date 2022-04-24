@@ -43,7 +43,7 @@ body {
 .outline {
     font-size: 10px;
     font-family: var(--font-outline);
-    line-height: 1.2;
+    line-height: 1.5;
 }
 
 .outline > .tree-item > .tree-item-self {
