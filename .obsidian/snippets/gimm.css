@@ -142,10 +142,15 @@ body {
     margin-left: 16px;
 }
 
-.reveal .image-embed, 
-.markdown-preview-view .image-embed {
+.reveal .image-embed[alt*="right"], 
+.markdown-preview-view .image-embed[alt*="right"] {
     text-align: right;
     float: right;
+}
+
+.reveal .image-embed, 
+.markdown-preview-view .image-embed {
+    text-align: center;
 }
 
 .reveal strong,

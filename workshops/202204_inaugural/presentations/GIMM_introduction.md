@@ -83,7 +83,7 @@ $$
 \notag
 $$
 
-![GIMM|180](gimm-alt-white-bkg.png)
+![GIMM-right|180](gimm-alt-white-bkg.png)
 
 *Jaromir Benes*
 *Tomas Motl*
