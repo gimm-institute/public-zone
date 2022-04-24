@@ -86,7 +86,6 @@ $$
 *Jaromir Benes*
 *Tomas Motl*
 
-
 GIMM Inaugural Workshop
 April 2022
 
@@ -117,7 +116,7 @@ April 2022
 
 ### Key modeling principles
 
-* Top-down view of the economy
+* __Top-down__ view of the economy
   * Complements the usual FinStab bottom-up approach
   * Works with aggregate concepts, not individual financial institutions
 * Endogenous feedback loops: (macroeconomy <--> financial sector)

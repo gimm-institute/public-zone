@@ -126,7 +126,7 @@ body {
     background-color: var(--color-accent);
     color: var(--color-text);
     float: right;
-    padding: 0.37em 0.5em 0.37em 0.5em;
+    padding: 0.37em 0.55em 0.37em 0.55em;
     font-size: 80%;
 }
 
@@ -138,6 +138,12 @@ body {
 .markdown-preview-view .image-embed {
     text-align: right;
 }
+
+.markdown-preview-view strong{
+    text-decoration: underline;
+    text-decoration-color: var(--color-accent);
+}
+
 
 /********** .reveal **********/
 
