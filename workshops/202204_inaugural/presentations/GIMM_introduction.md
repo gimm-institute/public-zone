@@ -1,9 +1,3 @@
----
-`id: for <>p
-this: Part A2 Bank Balance Sheets
-header: GIMM Framework Introducti9on ${id} ${this} / ${today}
-footer: ${currentFileFullName}: ${pageNo} of ${pageCount}
----
 
 # Introduction to GIMM Macroprudential Modeling Framework
 
@@ -88,6 +82,17 @@ $$
 \newcommand{\rec}{\mathrm{rec}}
 \notag
 $$
+
+*Jaromir Benes*
+*Tomas Motl*
+
+
+GIMM Inaugural Workshop
+April 2022
+
+![GIMM|150](gimm-alt-white-bkg.png)
+
+---
 
 ### Introduction
 
