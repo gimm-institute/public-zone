@@ -96,9 +96,9 @@ April 2022
 ### Overview
 
 
-* We will accompany contributions by speakers by macroprudential model simulations 
+* Speaker contributions followed by model-based simulations 
 * This presentation introduces the modeling framework (MESSr)
-* Non-technical exposition, focusing on guiding principles
+* Non-technical exposition, focusing on general, guiding principles
 
 
 ---
@@ -106,10 +106,10 @@ April 2022
 ### About the framework
 
 * Outcome of several applied macroprudential modeling projects
-* Focused on production, not theoretical insights
-  * Motivated by insights from DSGE models such as MAPMOD
+* Focus primarily on __production__, not theoretical insights
+  * Motivated by insights from DSGE models (e.g. MAPMOD)
   * But flexible semi-structural approach for practical reasons
-* Ongoing development based on real-world needs
+* Ongoing development based on our projects
 
 
 ---
@@ -119,24 +119,25 @@ April 2022
 * __Top-down__ view of the economy
   * Complements the usual FinStab bottom-up approach
   * Works with aggregate concepts, not individual financial institutions
-* Endogenous feedback loops: (macroeconomy <--> financial sector)
-  * Complements the traditional FinStab approach (macro --> financial sector)
-* Medium-term view
-  * Complements FinStab approach which is usually short-term
+* Endogenous __feedback loops__: (macroeconomy $\Longleftrightarrow$ financial sector)
+  * Vs traditional FinStab approach (macro $\Longrightarrow$ financial sector)
+* Medium-term view (2-5 yrs)
   * Important to analyze macroprudential policy:
-    * Time for endogenous feedbacks to kick in
+    * Time for endogenous feedback loops to kick in
     * Trade-offs of small and obvious costs now vs large potential gains in future
 
 ---
 
 ### Key modeling principles, cont.
 
-* Explicit description of balance sheets
+* __Explicit__ description of balance sheets
   * Need good description how balance sheets increase / shrink and implications of that for macroeconomy
   * Non-trivial, money and deposit creation are often understudied
   * Gross positions matter, not just net positions
 * Stock-flow consistency:
+<article>
   * Proper link between stocks (wealth, credit stock, assets / liabilities) and flows (GDP, credit creation, defaults / repayments)
+    </article>
 * Important role of non-linearities
   * Necessary to render macroprudential policy relevant and useful
   * Important to describe real-world events
@@ -188,10 +189,10 @@ April 2022
 
 |                   | Assets                         |            Liabilities |                   |
 | :---------------- | :----------------------------- | ---------------------: | ----------------: |
-| \xle              | Net loans                      | Non-equity liabilities |               \xd |
-| +\ \sum \xl^{\,k} | *Gross loans*                  |       *Local currency* |  d_t^{\,\xlcy}\ + |
-| -\ \sum \xall^k   | *Allowances for credit losses* |     *Foreign currency* | d_t^{\,\xfcy} \ + |
-| \xona             | Other net assets               |           Bank capital |                bk |
+| $\xle$              | Net loans                      | Non-equity liabilities |               \xd |
+| $+\ \sum \xl^{\,k}$ | *Gross loans*                  |       *Local currency* |  d_t^{\,\xlcy}\ + |
+| $ -\ \sum \xall^k $  | *Allowances for credit losses* |     *Foreign currency* | d_t^{\,\xfcy} \ + |
+| $\xona$             | Other net assets               |           Bank capital |                bk |
 
 * We allow for:
   * Loan portfolio segmentation (mortgages, consumer credit, ...)
@@ -211,7 +212,7 @@ April 2022
 
 ### Explicit modeling of bank capital, P&L
 
-![bank-capital](bank-capital.png)
+![bank-capital|900](bank-capital.png)
 
 ---
 
@@ -256,7 +257,7 @@ Motivated by insights from DSGE models, provides more insight. Our approach
 
 * Key component of the model
 
-![new-lending-conditions](new-lending-conditions.png)
+![new-lending-conditions|300](new-lending-conditions.png)
 
 ---
 
