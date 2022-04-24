@@ -85,8 +85,8 @@ $$
 
 ![GIMM-right|180](gimm-alt-white-bkg.png)
 
-*Jaromir Benes*
-*Tomas Motl*
+*Jaromir Benes* jaromir.benes@gimm.institute
+*Tomas Motl* tomas.motl@gimm.institute
 
 GIMM Inaugural Workshop
 April 2022
@@ -228,18 +228,15 @@ April 2022
 
 ### Credit creation
 
-__Reduced-form approach__
+__Reduced-form approach__: Provides little insight into demand and supply
 
-![Reduced form credit creation|700](reduced-form-credit-creation.png)
+![Reduced form credit creation|600](reduced-form-credit-creation.png)
 
-Provides little insight into demand and supply forces in the credit market.
-
-
-__Our approach__
+__Our approach__: Motivated by insights from DSGE models.
 
 
-![Semistructural credit creation|700](structural-credit-creation.png)
-Motivated by insights from DSGE models.
+![Semistructural credit creation|750](structural-credit-creation.png)
+
 
 
 ---
@@ -264,7 +261,7 @@ Motivated by insights from DSGE models.
 
 ### Key nonlinearity 1: Credit risk function
 
-* Link of credit risk to macro conditions (??????) is non-linear
+* Link of credit risk to macro conditions <mark>Single factor somethign BASEL?</mark> is non-linear
 
 ![image-20220423233150331](image-20220423233150331.png)
 
