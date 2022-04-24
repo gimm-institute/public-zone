@@ -227,12 +227,12 @@ body {
     display: none;
 }
 
-.markdown-preview-view section > ul > li, 
+.markdown-preview-view div > ul > li, 
 .reveal section > ul > li {
     margin-top: 1.5em;
 }
 
-.markdown-preview-view section > ul > li li,
+.markdown-preview-view div > ul > li li,
 .reveal section > ul > li li {
     margin-top: 0.5em;
 }
