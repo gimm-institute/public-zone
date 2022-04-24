@@ -103,6 +103,12 @@ body {
     border-bottom: none;
 }
 
+.reveal h1,
+.markdown-preview-view h1 {
+    text-decoration: underline;
+    text-decoration-color: var(--color-accent);
+}
+
 .markdown-preview-view h1 {
     padding-top: 100px;
 }
@@ -135,10 +141,13 @@ body {
     margin-left: 16px;
 }
 
+.reveal .image-embed, 
 .markdown-preview-view .image-embed {
     text-align: right;
+    float: right;
 }
 
+.reveal strong,
 .markdown-preview-view strong{
     text-decoration: underline;
     text-decoration-color: var(--color-accent);
@@ -152,6 +161,7 @@ body {
     color: var(--text-title-h1);
     margin-top: 15%;
     text-transform: none;
+    font-size: 65px;
 }
 
 .reveal h2 {
@@ -214,5 +224,13 @@ body {
 
 .reveal article {
     display: none;
+}
+
+.reveal li {
+    margin-bottom: 0.75em;
+}
+
+.reveal li ul {
+    margin-top: 0.75em;
 }
 

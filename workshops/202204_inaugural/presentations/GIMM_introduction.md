@@ -1,5 +1,5 @@
 
-# Introduction to GIMM Macroprudential Modeling Framework
+# Introducing MESSr:  the GIMM Macroprudential Modeling Framework
 
 $$
 \newcommand{\xona}[1][t]{{ona}_{#1}}
@@ -83,18 +83,17 @@ $$
 \notag
 $$
 
+![GIMM|180](gimm-alt-white-bkg.png)
+
 *Jaromir Benes*
 *Tomas Motl*
 
 GIMM Inaugural Workshop
 April 2022
 
-![GIMM|150](gimm-alt-white-bkg.png)
-
 ---
 
-### Introduction
-
+### Overview
 
 
 * We will accompany contributions by speakers by macroprudential model simulations 
@@ -113,6 +112,7 @@ April 2022
 * Ongoing development based on real-world needs
 
 
+---
 
 ### Key modeling principles
 
@@ -127,6 +127,8 @@ April 2022
     * Time for endogenous feedbacks to kick in
     * Trade-offs of small and obvious costs now vs large potential gains in future
 
+---
+
 ### Key modeling principles, cont.
 
 * Explicit description of balance sheets
@@ -139,6 +141,8 @@ April 2022
   * Necessary to render macroprudential policy relevant and useful
   * Important to describe real-world events
 
+---
+
 ### Focus on application
 
 * MESSr is a semi-structural framework
@@ -148,6 +152,8 @@ April 2022
 * Integration and aggregation of several types of risk
 * Flexibility to describe various structures of financial system
   * Primary focus on banks, but also other intermediaries too
+
+---
 
 ### Not just a model
 
@@ -159,6 +165,8 @@ April 2022
 * Ability to build scenarios on top of (externally provided) baseline
 * Motivated by experience from and focus on practical applications
 
+---
+
 ### Differences from other macropru frameworks
 
 * No endogenous macroprudential policy reaction function
@@ -168,9 +176,13 @@ April 2022
 
 
 
+---
+
 ### Main model blocks
 
 ![model-structure](model-structure.png)
+
+---
 
 ### Banking sector balance sheet
 
@@ -185,6 +197,8 @@ April 2022
   * Loan portfolio segmentation (mortgages, consumer credit, ...)
   * Currency segmentation (local vs foreign currency denominated loans)
 
+---
+
 ### Proper balance sheet accounting
 
 * For each loan segment, the model keeps track of performing loans, non-performing loans, allowances...
@@ -193,9 +207,13 @@ April 2022
 
 ![credit-risk-loan-performance](credit-risk-loan-performance.png)
 
+---
+
 ### Explicit modeling of bank capital, P&L
 
 ![bank-capital](bank-capital.png)
+
+---
 
 ### Forward-looking creation of allowances
 
@@ -205,6 +223,8 @@ April 2022
 *Dynamics of allowances*
 
 ![allowances-stock-flow](allowances-stock-flow.png)
+
+---
 
 ### Credit creation
 
@@ -224,9 +244,13 @@ Motivated by insights from DSGE models, provides more insight. Our approach
 
 ![Semistructural credit creation](structural-credit-creation.png)
 
+---
+
 ### Credit supply and demand
 
 ![credit-creation](credit-creation.png)
+
+---
 
 ### Credit supply - lending conditions
 
@@ -234,15 +258,21 @@ Motivated by insights from DSGE models, provides more insight. Our approach
 
 ![new-lending-conditions](new-lending-conditions.png)
 
+---
+
 ### Stock lending rate vs new lending rate
 
 ![lending-rates-stock-flow](lending-rates-stock-flow.png)
+
+---
 
 ### Key nonlinearity 1: Credit risk function
 
 * Link of credit risk to macro conditions (??????) is non-linear
 
 ![image-20220423233150331](image-20220423233150331.png)
+
+---
 
 ### Key nonlinearity 2: Capital risk surcharge
 
