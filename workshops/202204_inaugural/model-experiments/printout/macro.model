@@ -1,0 +1,319 @@
+%% MESSr-NBU: Macro module 
+
+
+!variables
+
+pa<1+1.00985i>, bubble<1+1i>
+
+    "Real GDP" y<1+1.00985i>
+    "Nominal GDP" ny<1+1.02225i>
+    "GDP deflator" py<1+1.01227i>
+    "Real GDP, Rate of change" roc_y<1.00985+1i>
+    "Real GDP,  Four-quarter rate of change" roc4_y<1.04+1i>
+    
+    "Nominal GDP, Rate of change" roc_ny<1.02225+1i>
+    "GDP deflator, Rate of change" roc_py<1.01227+1i>
+    "GDP gap" y_gap<1+1i>
+    "GDP trend (potential)" y_tnd<1+1.00985i>
+    "GDP trend (potential), Rate of change" roc_y_tnd<1.00985+1i>
+    "Real future income proxy" fws_y<1+1.00985i>
+
+    "CPI" cpi<1+1.01227i>
+    "CPI, Rate of change" roc_cpi<1.01227+1i>
+    "CPI, Four-quarter rate of change" roc4_cpi<1.05+1i>
+
+    "Inflation expectations" roc_cpi_exp<1.01227+1i>
+
+    "Short-term cash rate" r<0.0198643>
+    "Real short-term rate" rr<0.0075>
+    "Real short-term rate gap" rr_gap<0>
+    "Real short-term rate trend" rr_tnd<0.0075>
+    "Short-term cash rate trend" r_tnd<0.0198643>
+
+    "Nominal exchange rate" e<1+1.0022i>
+    "Nominal exchange rate, Rate of change" roc_e<1.0022+1i>
+    "Nominal exchange rate expectations" e_exp<1.0022+1.0022i>
+    "Real exchange rate" re<1+0.994962i>
+    "Real exchange rate trend" re_tnd<1+0.994962i>
+    "Real exchange rate trend" roc_re_tnd<0.994962+1i>
+    "Real exchange rate gap" re_gap<1+1i>
+    "Real exchange rate gap, Rate of change" roc_re_gap<1+1i>
+    "Nominal exchange rate depreciation gap" roc_e_gap<1+1i>
+    "Interest disparity" prem<0.0109586>
+    "Interest disparity trend" prem_tnd<0.0109586>
+    "Interest disparity gap" prem_gap<0>
+    "Short-term cash rate, unconstrained" r_uc<0.0198643+1i>
+    
+
+
+!log-variables !all-but
+
+    r<0.0198643>, rr<0.0075>, r_tnd<0.0198643>, rr_tnd<0.0075>, rr_gap<0>, prem<0.0109586>, prem_tnd<0.0109586>, prem_gap<0>
+
+
+!parameters
+
+c0_bubble<0.9>
+
+    % Directly calibrated steady-state properties
+    "S/S Real GDP, Rate of change" ss_roc_y<1.00985>
+    "S/S CPI, Rate of change" ss_roc_cpi<1.01227>
+    "S/S Real short-term rate" ss_rr<0.0075>
+    "S/S Real exchange rate, Rate of change"  ss_roc_re<0.994962>
+    "S/S Discount rate in future income proxy" ss_disc_fws_y<0.05>
+
+    % Dynamic parameters
+    "Autoregression in GDP Gap" c0_y_gap<0.7>
+    "Response in GDP gap to future income proxy" c1_y_gap<0.1>
+    "Response i nGDP gap to real short-term rate" c2_y_gap<0.05>
+    "Response in GDP gap to new lending conditions" c3_y_gap<0.15>
+    "Response in GDP gap to real exchange rate gap" c4_y_gap<0.02>
+    "Response in GDP gap to foreign demand" c5_y_gap<0.3>
+
+    "Sensitivity of discount rate in future income proxy to lending conditions" c1_fws_y<0>
+
+    "Autoregression in real GDP trend" c0_roc_y_tnd<0.9>
+    "Hysteresis in real GDP trend" c1_roc_y_tnd<0.001>
+
+    "Autoregression in CPI inflation" c0_roc_cpi<0.6>
+    "Response in CPI inflation to GDP gap" c1_roc_cpi<0.025>
+    "Response in CPI inflation to RER gap" c2_roc_cpi<0.0125>
+    "Response in CPI inflation to RER gap change" c3_roc_cpi<0>
+
+    "Weight on model-consistent expectations in inflation expectations" c1_roc_cpi_exp<0.85>
+
+    "Autoregression in short-term rate" c0_r<0.7>
+    "Response in short-term rate to inflation" c1_r<0.625>
+    "Response in short-term rate to GDP gap" c2_r<0>
+    "Response in short-term rate to FX gap" c3_r<0.1>
+
+    "Autoregression in real short-term rate trend" c0_rr_tnd<0.95>
+
+    "Weight on model-consistent expectations in exchange rate expectations" c1_e_exp<0.6>
+    "Response in interest disparity to lending conditions" c1_prem<0.1>
+    "Autoregression in autonomous cyclical component in interest disparity" c0_prem_gap<0.6>
+
+    "Autoregression in real exchange rate trend" c0_roc_re_tnd<0.95>
+    "Response in real exchange rate trend to real exchange rate gap" c1_roc_re_tnd<0.001>
+
+    "floor to the policy rate" r_floor<0>
+
+
+!shocks
+
+shock_bubble
+
+    "Tunes on GDP gap" tune_y_gap
+    "Tune on GDP trend growth" tune_roc_y_tnd
+    "Tune on CPI" tune_roc_cpi
+    "Tune on short term cash rate, LCY" tune_r
+    "Tune on autonomous cyclical component in interest disparity" tune_prem_gap
+    "Tune on real short-term rate trend" tune_rr_tnd
+
+
+    "Shock to GDP gap" shock_y_gap
+    "Shock to GDP trend growth" shock_roc_y_tnd
+    "Shock to GDP trend level" shock_y_tnd
+    "Shock to GDP deflator" shock_roc_py
+    "Shock to CPI" shock_roc_cpi
+    "Shock to short term cash rate, LCY" shock_r
+    "Shock to exchange rate" shock_e
+    "Shock to real exchange rate trend" shock_roc_re_tnd
+    "Shock to autonomous cyclical component in interest disparity" shock_prem_gap
+    "Shock to real short-term rate trend" shock_rr_tnd
+    
+
+
+!substitutions
+
+    ss_prem := ((1 + ss_rr<0.0075>) / (1 + ss_rrw<0.001625>) / ss_roc_re<0.994962> - 1);
+    ss_roc_e := (ss_roc_re<0.994962> * ss_roc_cpi<1.01227> / ss_roc_cpiw<1.00496>);
+
+
+!equations
+
+% GDP
+
+    "GDP trend-gap decomposition"
+    y<1+1.00985i> = y_tnd<1+1.00985i> * y_gap<1+1i>;
+
+    "Aggregate demand equation"
+    log(y_gap<1+1i>) ...
+        = c0_y_gap<0.7> * log(y_gap{-1}<1+1i>) ...
+        ... + c1_y_gap<0.1> * log(fws_y<1+1.00985i>/y<1+1.00985i>) ...
+        + c1_y_gap<0.1> * log(pa<1+1.00985i>/y<1+1.00985i>) ...
+        - c2_y_gap<0.05> * 4*rr_gap<0> ...
+        - c3_y_gap<0.15> * 4*new_rl_full_spread_gap<0> ...
+        + c4_y_gap<0.02> * log(re_gap{-1}<1+1i>) ...
+        + c5_y_gap<0.3> * log(yw_gap<1+1i>) ...
+        + c2_y_gap<0.05> * (r_uc<0.0198643+1i>-r<0.0198643>) ...
+        + shock_y_gap ...
+        + tune_y_gap ...
+    !! y_gap<1+1i> = 1;
+
+    "GDP trend (potential GDP) assumptions"
+    log(roc_y_tnd<1.00985+1i>) ...
+        = c0_roc_y_tnd<0.9> * log(roc_y_tnd{-1}<1.00985+1i>) ...
+        + (1 - c0_roc_y_tnd<0.9>) * log(ss_roc_y<1.00985>) ...
+        + c1_roc_y_tnd<0.001> * log(y_gap<1+1i>) ...
+        + shock_roc_y_tnd ...
+        + tune_roc_y_tnd ...
+    !! roc_y_tnd<1.00985+1i> = ss_roc_y<1.00985>;
+
+    "GDP deflator assumptions"
+    log(roc_py<1.01227+1i>) = log(roc_cpi<1.01227+1i>) + shock_roc_py ...
+    !! roc_py<1.01227+1i> = roc_cpi<1.01227+1i>;
+
+    "Nominal GDP identity"
+    ny<1+1.02225i> = py<1+1.01227i> * y<1+1.00985i>;
+
+
+% Proxy for the fundamental value of asset prices (Claims on future gdp)
+
+    "Discounted forward sum of real GDP, normalized to current"
+    fws_y<1+1.00985i> ...
+        = (1 - 1/(1 + ss_disc_fws_y<0.05>)) * y<1+1.00985i> ...
+        + 1/(1 + ss_disc_fws_y<0.05> + c1_fws_y<0>*new_rl_full_spread_gap<0>) * fws_y{+1}<1+1.00985i>/ss_roc_y<1.00985> ...
+    !! fws_y<1+1.00985i> = y<1+1.00985i>;
+
+% Proxy for the actual value of asset prices
+
+    pa<1+1.00985i> = fws_y<1+1.00985i> * bubble<1+1i> ...
+    !! pa<1+1.00985i> = fws_y<1+1.00985i>;
+
+    log(bubble<1+1i>) = c0_bubble<0.9> * log(bubble{-1}<1+1i>) + shock_bubble ...
+    !! bubble<1+1i> = 1;
+
+
+
+% Consumer prices
+
+    "Phillips curve"
+    log(roc_cpi<1.01227+1i>) ...
+        = c0_roc_cpi<0.6> * log(roc_cpi{-1}<1.01227+1i>) ...
+        + (1 - c0_roc_cpi<0.6>) * log(roc_cpi_exp<1.01227+1i>) ...
+        + c1_roc_cpi<0.025>  * log(y_gap<1+1i>) ...
+        + c2_roc_cpi<0.0125>  * log(re_gap<1+1i>) ...
+        + c3_roc_cpi<0> * log(roc_re_gap<1+1i>) ...
+        + shock_roc_cpi ...
+        + tune_roc_cpi ...
+    !! roc_cpi<1.01227+1i> = ss_roc_cpi<1.01227>;
+
+    "Inflation expectations"
+    log(roc_cpi_exp<1.01227+1i>) ...
+        = c1_roc_cpi_exp<0.85> * log(roc_cpi{+1}<1.01227+1i>) ...
+        + (1 - c1_roc_cpi_exp<0.85>) * log(ss_roc_cpi<1.01227>) ...
+    !! roc_cpi_exp<1.01227+1i> = ss_roc_cpi<1.01227>;
+
+
+% Monetary Policy
+
+    "Monetary policy reaction function"
+    r<0.0198643> = 0.1*r_uc<0.0198643+1i> + (1-0.1)*max(r_uc<0.0198643+1i>, r_floor<0>)
+    !! r<0.0198643> = r_uc<0.0198643+1i>; 
+    
+    r_uc<0.0198643+1i> = ...
+        + c0_r<0.7> * r{-1}<0.0198643> ...
+        + (1 - c0_r<0.7>) * [ ...
+            + r_tnd<0.0198643> ...
+            + c1_r<0.625>*(log(roc4_cpi{+3}<1.05+1i>)/4 - log(ss_roc_cpi<1.01227>)) ...
+            + c2_r<0>*log(y_gap<1+1i>) ...
+            + c3_r<0.1>*log(roc_e_gap<1+1i>) ...
+        ] ...
+        + shock_r ...
+        + tune_r ...
+    !! r<0.0198643> = r_tnd<0.0198643>;
+
+    1 + r_tnd<0.0198643> = (1 + rr_tnd<0.0075>) * ss_roc_cpi<1.01227> ...
+    !! r_tnd<0.0198643> = (1 + ss_rr<0.0075>) * ss_roc_cpi<1.01227> - 1;
+
+    1 + rr<0.0075> = (1 + r<0.0198643>) / roc_cpi_exp<1.01227+1i> ...
+    !! rr<0.0075> = ss_rr<0.0075>;
+
+    rr_gap<0> = rr<0.0075> - rr_tnd<0.0075> ...
+    !! rr_gap<0> = 0;
+
+    rr_tnd<0.0075> = ...
+        + c0_rr_tnd<0.95> * rr_tnd{-1}<0.0075> ...
+        + (1 - c0_rr_tnd<0.95>) * ss_rr<0.0075> ...
+        + shock_rr_tnd ...
+        + tune_rr_tnd ...
+    !! rr_tnd<0.0075> = ss_rr<0.0075>;
+
+
+% Exchange Rate
+
+    "Uncovered interest parity"
+    (1 + r<0.0198643>) = (1 + rw<0.006596>) * e_exp<1.0022+1.0022i>/e<1+1.0022i> * (1 + prem<0.0109586>) * exp(shock_e) ...
+    !! roc_e<1.0022+1i> = $ss_roc_e$;
+
+
+    "Interest disparity"
+    prem<0.0109586> = prem_tnd<0.0109586> + prem_gap<0> + c1_prem<0.1>*new_rl_full_spread_gap<0> ...
+    !! prem<0.0109586> = $ss_prem$;
+
+
+    "Interest disparity trend"
+    (1 + rr_tnd<0.0075>) = (1 + rrw_tnd<0.001625>) * roc_re_tnd{+1}<0.994962+1i> * (1 + prem_tnd<0.0109586>) ...
+    !! prem_tnd<0.0109586> = $ss_prem$;
+
+
+    "Interest disparity gap"
+    prem_gap<0> = ...
+        + c0_prem_gap<0.6> * prem_gap{-1}<0> ...
+        + shock_prem_gap ...
+        + tune_prem_gap ...
+    !! prem_gap<0> = 0;
+
+
+    "Exchange rate expectations"
+    log(e_exp<1.0022+1.0022i>) ...
+        = c1_e_exp<0.6> * log(e{+1}<1+1.0022i>) ...
+        + (1 - c1_e_exp<0.6>) * log(e{-1}<1+1.0022i> * $ss_roc_e$^2) ...
+    !! e_exp<1.0022+1.0022i> = e{+1}<1+1.0022i>;
+
+
+    "Real exchange rate definition"
+    re<1+0.994962i> = e<1+1.0022i> * cpiw<1+1.00496i> / cpi<1+1.01227i>;
+
+
+    "Real exchange rate trend-gap decomposition"
+    re<1+0.994962i> = re_tnd<1+0.994962i> * re_gap<1+1i>;
+
+
+    "Real exchange rate trend assumptions"
+    log(roc_re_tnd<0.994962+1i>) = ...
+        + c0_roc_re_tnd<0.95> * log(roc_re_tnd{-1}<0.994962+1i>) ...
+        + (1 - c0_roc_re_tnd<0.95>) * log(ss_roc_re<0.994962>) ...
+        + c1_roc_re_tnd<0.001> * log(re_gap<1+1i>) ...
+        + shock_roc_re_tnd ...
+    !! roc_re_tnd<0.994962+1i> = ss_roc_re<0.994962>;
+
+
+    "Nominal exchange rate depreciation gap"
+    roc_e_gap<1+1i> = roc_e<1.0022+1i> / (roc_re_tnd<0.994962+1i> / &roc_cpiw<1.00496+1i>*&roc_cpi<1.01227+1i>);
+
+
+% Rates of change
+
+    !for ny<1+1.02225i>, y<1+1.00985i>, y_tnd<1+1.00985i>, e<1+1.0022i>, py<1+1.01227i>, cpi<1+1.01227i>, re_tnd<1+0.994962i>, re_gap<1+1i> !do
+        roc_? = ? / ?{-1};
+    !end
+
+
+% Four-quarter rates of change
+
+    !for cpi<1+1.01227i> y<1+1.00985i> !do
+        roc4_? = ? / ?{-4};
+    !end
+
+
+!autoswaps-simulate
+
+    y_gap<1+1i> := tune_y_gap;
+    roc_y_tnd<1.00985+1i> := tune_roc_y_tnd;
+    roc_cpi<1.01227+1i> := tune_roc_cpi;
+    r<0.0198643> := tune_r;
+    rr_tnd<0.0075> := tune_rr_tnd;
+    e<1+1.0022i> := tune_prem_gap;
+

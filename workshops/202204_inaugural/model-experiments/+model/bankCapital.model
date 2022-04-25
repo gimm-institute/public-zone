@@ -1,0 +1,205 @@
+%% MESSr-NBU: Bank capital module
+
+
+%% Aggregate quantities
+
+!variables
+
+    "Total net assets" tna
+    "Financial bank capital, closing" bk
+    "Regulatory capital" bg
+    "Return on bank capital" rbk
+    "Standard capital adequacy ratio" car
+    "Minimum regulatory car" car_min
+    "Comfort level of standard capital adequacy ratio" car_tar
+    "Average effective risk weight" riskw
+    "Capital adequacy risk surcharge" rx
+    "Non-equity liabilities" d
+    "Other net assets" ona
+    "Open net foreign exchange position" onfx
+    "Regulatory to financial bank capital ratio" bg_to_bk
+
+
+!parameters
+
+    % Directly calibrated steady state values
+    "S/S Average Effective Risk Weight" ss_riskw
+    "S/S Minimum Regulatory CAR" ss_car_min
+    "S/S Comfort Level of CAR Buffers" ss_car_exc
+    "S/S Open Net Foreign Position" ss_onfx
+    "S/S Share of Other Net Assets in Total Net Assets" ss_ona_to_tna
+    "S/s Regulatory bank capital" ss_bg_to_bk
+
+
+    % Dynamic parameters
+    "Add-hoc reaction to capital buffer" c1_bk
+    "Autoregression in average effective risk weight" c0_riskw
+    "Autoregression in minimum regulatory CAR" c0_car_min
+    "Other profit and loss to total net assets ratio" c1_rbk_other
+    "Autoregression in other net assets" c0_ona
+    "Autoregression in regulatory to financial bank capital ratio" c0_bg_to_bk
+
+
+    % Parameters of capital adequacy stress nonlinearity
+    "Capital adequacy stress function parameter" c1_rx
+    "Capital adequacy stress function parameter" c2_rx
+    "Capital adequacy stress function parameter" c3_rx
+    "Capital adequacy stress function parameter" c4_rx
+    "Capital adequacy stress function parameter" c5_rx
+
+    "Floor on return on bank capital" floor_rbk
+
+
+!shocks
+
+    "Shock to Return on Bank Capital" shock_rbk
+    "Shock to Regulatory Risk Weights" shock_riskw
+    "Shock to Open Net Foreign Exchange Position" shock_onfx
+    "Shock to minimum regulatory CAR" shock_car_min
+    "Shock to other net assets" shock_ona
+    "Shock to regulatory to financial bank capital ratio" shock_bg_to_bk
+
+
+!log-variables !all-but
+
+    rbk, car, car_min, car_tar, riskw, onfx
+    rx
+
+
+!substitutions-postprocessor
+
+    d_fcy_lag := (d{-1} - d_lcy{-1});
+
+    !for <segments> !do
+        prof_int_loans_? := (rl_?{-1}*(lp0_? + lnc0_?));
+    !end
+    prof_int_loans := (!for <segments> !do + $prof_int_loans_?$ !end);
+
+%     prof_prov := (!for <segments> !do - (af_? - af_?{-1} + woff_?) !end);
+    prof_prov := (!for <segments> !do - (ap_? - ap_?{-1} + woff_?) !end);
+
+    prof_val_ass := (!for <segments> !do + l_?{-1}*(j_? - 1) !end);
+    prof_int_liab := (-(rd_lcy{-1}*d0_lcy + rd_fcy{-1}*e/e{-1}*$d_fcy_lag$));
+    prof_val_liab := (-($d_fcy_lag$*(e/e{-1} - 1)));
+    prof_val := ($prof_val_ass$ + $prof_val_liab$);
+    prof_int_ona := (rona{-1} * ona{-1});
+    prof_other := c1_rbk_other * tna{-1};
+
+
+!equations
+
+    % Balance sheet identity
+    tna = l - af + ona;
+    tna = d + bk;
+
+
+    % Other assets
+    log(ona) = ...
+        + c0_ona * log(&roc_ny*ona{-1}) ...
+        + (1 - c0_ona) * log(ss_ona_to_tna * tna) ...
+        + shock_ona ...
+    !! ona = ss_ona_to_tna * tna;
+
+
+    % Return on bank capital
+    (rbk - shock_rbk) * bk{-1} = ...
+        + $prof_int_loans$...    % Interest income from loans
+        + $prof_int_ona$ ...     % Interest income from other net assets (securities)
+        + $prof_other$ ...       % Other net income
+        + $prof_prov$...         % Provisioning
+        + $prof_val_ass$...      % Exchange rate valuation of assets
+        + $prof_int_liab$...     % Interest expense on liabilities
+        + $prof_val_liab$...     % Exchange rate valuation of liabilities
+    ;
+
+    % Financial bank capital
+    log(bk) = log(bk{-1}) ...
+        + log(&roc_ny) ...
+        ... + log(exp(floor_rbk*100) + exp((rbk-&rbk)*100))/100 - log(exp(floor_rbk*100) + 1)/100 ...
+        + log(1 + rbk - &rbk) ... 
+        - c1_bk*(car{+8} - car_tar{+8}) ...
+    !! bg = car_tar * riskw * tna;
+
+
+    % Regulatory bank capital
+    bg = bg_to_bk * bk;
+
+
+    bg_to_bk = ...
+        + c0_bg_to_bk * bg_to_bk{-1} ...
+        + (1 - c0_bg_to_bk) * ss_bg_to_bk ...
+        + shock_bg_to_bk ...
+    !! bg_to_bk = ss_bg_to_bk;
+
+
+
+    % Standard capital adequacy ratio
+    car = bg / (riskw * tna);
+
+
+    % Average effective risk weights
+    riskw ...
+        = c0_riskw * riskw{-1} ...
+        + (1 - c0_riskw) * ss_riskw ...
+        + shock_riskw ...
+    !! riskw = ss_riskw;
+
+
+    % Comfort level of standard CAR
+    car_tar = car_min + ss_car_exc;
+
+
+    % Regulatory minimum for standard CAR
+    car_min ...
+        = c0_car_min * car_min{-1} ...
+        + (1 - c0_car_min) * ss_car_min ...
+        + shock_car_min ...
+    !! car_min = ss_car_min;
+
+
+    % Impact of capital adequacy stress on lending conditions
+    "Capital adequacy stress surcharge"
+    rx = glogc1(-(car - car_min), c1_rx, c2_rx, c3_rx, c4_rx, c5_rx);
+
+
+
+%% Currency of denomination for non-equity liabilities
+
+
+!variables
+
+    "Local currency non-equity liabilities" d_lcy
+    "Local currency non-equity liabilities, opening after new information" d0_lcy
+
+
+!equations
+
+    d - d_lcy...
+        = !for <segments> !do + sigma_? * l_? !end ...
+        + onfx*bk;
+
+    d0_lcy = d_lcy{-1};
+
+    onfx = ss_onfx + shock_onfx;
+
+
+!postprocessor
+
+    rbk_int_loans = $prof_int_loans$ / bk{-1};
+    rbk_int_ona = $prof_int_ona$ / bk{-1};
+    rbk_prov = $prof_prov$ / bk{-1};
+    rbk_val_ass = $prof_val_ass$ / bk{-1};
+    rbk_int_liab = $prof_int_liab$ / bk{-1};
+    rbk_val_liab = $prof_val_liab$ / bk{-1};
+    rbk_other = $prof_other$ / bk{-1};
+
+    roa = rbk * bk{-1}/tna{-1};
+
+    roa_int_loans = $prof_int_loans$ / tna{-1};
+    roa_int_ona = $prof_int_ona$ / tna{-1};
+    roa_prov = $prof_prov$ / tna{-1};
+    roa_val_ass = $prof_val_ass$ / tna{-1};
+    roa_int_liab = $prof_int_liab$ / tna{-1};
+    roa_val_liab = $prof_val_liab$ / tna{-1};
+    roa_other = $prof_other$ / tna{-1};
+

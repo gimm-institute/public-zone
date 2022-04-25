@@ -1,0 +1,81 @@
+%% MESSr-NBU module: Prudential provisions 
+
+
+%% Aggregate 
+
+!variables
+
+    "Prudential provisions" ap
+    ap_to_l
+
+
+!log-variables !all-but
+
+    ap_to_l
+
+
+!equations
+
+    ap = !for <segments> !do + ap_? !end ;
+    ap_to_l = ap / l;
+
+
+%
+    
+%% Loan portfolio segments 
+
+!for
+    ? = <segments>
+
+!do
+    !variables
+        "Prudential provisions, ?" ap_?
+        "Prudential provisions for performing loans, ?" ap_lp_?
+        "Prudential provisions for nonperforming loans, ?" ap_ln_?
+        "Fixed (legacy) effect in prudential provisions as a fraction of provisions, ?" ap_fe_?
+        ap_to_l_?
+
+
+    !log-variables !all-but
+
+        ap_fe_?, ap_to_l_?
+
+
+    !parameters
+
+        "PD for performing loans, ?" pd_lp_?
+        "PD for nonperforming loans, ?" pd_ln_?
+        "LGD for performing loans, ?" lgd_lp_?
+        "LGD for nonperforming loans, ?" lgd_ln_?
+        "PD*LGD for perfomring loans, ?" gamma_lp_?
+        "PD*LGD for nonperfomring loans, ?" gamma_ln_?
+        "Autoregression in fixed (legacy) effect in prudential provisions, ?" c0_ap_fe_?
+
+
+    !shocks
+
+        "Shock to fixed (legacy) effect in prudential provisions, ?" shock_ap_fe_?
+
+
+    !links
+
+        gamma_lp_? := pd_lp_? * lgd_lp_?;
+        gamma_ln_? := pd_ln_? * lgd_ln_?;
+
+
+    !equations
+
+        ap_? = ap_lp_? + ap_ln_? + ap_? * ap_fe_?;
+
+        ap_ln_? = gamma_ln_? * ln_?;
+
+        ap_lp_? = gamma_lp_? * lp_?;
+
+        ap_fe_? = ...
+            + c0_ap_fe_? * ap_fe_?{-1} ...
+            + shock_ap_fe_?;
+
+        ap_to_l_? = ap_? / l_?;
+
+!end
+

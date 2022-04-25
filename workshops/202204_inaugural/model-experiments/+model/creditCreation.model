@@ -1,0 +1,138 @@
+%% MESSr-NBU: Credit creation module 
+
+
+%% Aggregate 
+
+!variables
+
+    "New loans" new_l
+    "Loans to GDP ratio" l_to_4ny
+    "Loans to GDP ratio trend" l_to_4ny_tnd
+    "New loans to GDP ratio" new_l_to_ny
+    "New loans to gross loans ratio" new_l_to_l
+
+
+!log-variables !all-but
+
+    l_to_4ny, l_to_4ny_tnd, new_l_to_ny, new_l_to_l
+
+
+!shocks
+
+    "Shocks to new loans" shock_new_l
+
+
+!equations
+
+    new_l = !for <segments> !do + new_l_? !end;
+    l_to_4ny = l / (4*ny);
+    l_to_4ny_tnd = !for <segments> !do + l_to_4ny_tnd_? !end;
+    new_l_to_ny = new_l / ny;
+    new_l_to_l = new_l / l;
+
+%
+
+
+%% Loan portfolio segments 
+
+!for ?s = <segments> !do
+
+    !variables
+
+        "Transactions to be financed, ?s" trn_?s
+        "Average transactions to be financed, ?s" trn_avg_?s
+        "Inverse velocity of new loans, ?s" ivy_?s
+        "Inverse velocity of new loans trend, ?s" ivy_tnd_?s
+        "New loans, ?s" new_l_?s
+        "Loans to GDP ratio, ?s" l_to_4ny_?s
+        "New loans to GDP ratio, ?s" new_l_to_ny_?s
+        "New loans to stock loans ratio, ?s" new_l_to_l_?s
+        "Loans to GDP ratio trend, ?s" l_to_4ny_tnd_?s
+
+
+    !log-variables !all-but
+
+        l_to_4ny_?s, new_l_to_l_?s, l_to_4ny_tnd_?s, ivy_tnd_?s, new_l_to_ny_?s
+
+
+    !shocks 
+
+        "Shock to inverse velocity of new loans, ?s" shock_ivy_?s
+        "Shock to new loans, ?s" shock_new_l_?s
+        "Shock to gross loans to GDP ratio trend, ?s" shock_l_to_4ny_tnd_?s
+
+
+    !parameters
+
+        c0_ivy_tnd_?s
+        "Transactions in assets relative to GDP" c1_trn_?s
+        "S/S Gross loans to GDP ratio" ss_l_to_4ny_?s
+        "Autoregression in inverse velocity of new loans, ?s" c0_ivy_?s
+        "Response in inverse velocity to loans to GDP ratio, ?s" c1_ivy_?s
+        "Response in inverse velocity to lending conditions, ?s" c2_ivy_?s
+        "Autoregression AR1 in gross loans to GDP ratio trend, ?s" c0_l_to_4ny_tnd_?s
+        "Autoregression AR2 in gross loans to GDP ratio trend, ?s" c1_l_to_4ny_tnd_?s
+
+
+    !equations
+
+    % Credit creation
+
+        "Macroeconomic transactions"
+        trn_?s = ...
+            + (1 - c1_trn_?s) * py * y ...
+            + c1_trn_?s * py * pa %fws_y ...
+        !! trn_?s = py * y;
+
+
+        trn_avg_?s = ( !for ?k=<0:7> !do + ny{-?k}*&roc_ny^?k !end ) / 8;
+
+
+        "Inverse velocity of new loans, ?s"
+        ivy_?s = ...
+            + ivy_tnd_?s ...
+            - c1_ivy_?s * [ l_to_4ny_?s - l_to_4ny_tnd_?s ] ...
+            - c2_ivy_?s * new_rl_full_spread_gap_?s ...
+            + shock_ivy_?s ...
+        !! l_to_4ny_?s = ss_l_to_4ny_?s;
+
+
+
+        "New credit creation, ?s"
+        log(new_l_?s) = ...
+            + log(ivy_?s * trn_avg_?s) ...
+            + shock_new_l_?s ...
+            + shock_new_l ...
+        !! new_l_?s = ivy_?s * trn_?s;
+
+
+
+        "Gross loans to GDP ratio trend, ?s"
+        l_to_4ny_tnd_?s = ...
+            + c0_l_to_4ny_tnd_?s * l_to_4ny_tnd_?s{-1} ...
+            - c1_l_to_4ny_tnd_?s * l_to_4ny_tnd_?s{-2} ...
+            + (1 - c0_l_to_4ny_tnd_?s + c1_l_to_4ny_tnd_?s) * ss_l_to_4ny_?s ...
+            + shock_l_to_4ny_tnd_?s ...
+        !! l_to_4ny_tnd_?s = ss_l_to_4ny_?s;
+
+
+        "Inverse velocity of new loans trend, ?s"
+        ivy_tnd_?s = ...
+            + c0_ivy_tnd_?s * ivy_tnd_?s{-1} ...
+            + (1 - c0_ivy_tnd_?s) * &ivy_tnd_?s ...
+        !! ivy_tnd_?s = (4 * l_to_4ny_?s) * new_l_?s / l_?s;
+
+
+    % Calibration ratios
+
+        "Loans to GDP ratio, ?s"
+        l_to_4ny_?s = l_?s / (4*ny);
+
+        "New loans to GDP ratio, ?s"
+        new_l_to_ny_?s = new_l_?s / ny;
+
+        "New loans to stock loans ratio, ?s"
+        new_l_to_l_?s = new_l_?s / l_?s;
+
+!end
+
