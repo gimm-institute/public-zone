@@ -96,84 +96,98 @@ April 2022
 ### Overview
 
 
-* Speaker contributions followed by model-based simulations 
-* This presentation introduces the modeling framework (MESSr)
-* Non-technical exposition, focusing on general, guiding principles
+* Speaker presentations followed by model-based experiments
+
+* This presentation introduces MESSr, the GIMM modeling framework 
+
+* Non-technical exposition explaining general modeling principles
 
 
 ---
 
 ### About the framework
 
-* Outcome of several applied macroprudential modeling projects
-	* Diverse economies and financial systems motivated large number of extensions
-* Focus primarily on __production__, not theoretical insights
-  * Motivated by insights from DSGE models (e.g. MAPMOD)
-  * But flexible semi-structural approach for practical reasons
-* Ongoing development based on our projects
+* The outcome of several __applied projects__ in macroprudential modeling
+	* A large numer of extensions emerged motivated by diverse economies and financial systems 
+
+* __Practical scenario production and policy advice__ framework, not a theoretical model
+    * Flexible semi-structural approach combining theory insights and empirical relevance
+    * Incorporates insights from more structural models, including DSGEs (e.g. MAPMOD)
+
+* __Continuous development__ responding to our technical cooperation projects
+
+---
+
+### Not just a model
+
+* A model alone, while a critical element, is not enough
+
+* Needs __operating infrastructure__ for regular use and streamlined production of outputs
+    * Collecting and feeding data to the model
+    * Streamlining the processing of inputs and outputs
+    * Reporting, internal and external communication of results
+
+* Motivated by first-hand experience from our practical applications
 
 
 ---
 
 ### Key modeling principles
 
-* __Top-down__ view of the economy
-  * Complements the usual FinStab bottom-up approach
-  * Works with aggregate concepts, not individual financial institutions
-* Endogenous __feedback loops__: (macroeconomy $\Longleftrightarrow$ financial sector)
-  * Vs traditional FinStab approach (macro $\Longrightarrow$ financial sector)
-* Medium-term view (2-5 yrs)
-  * Important to analyze macroprudential policy:
-    * Time for endogenous feedback loops to kick in
-    * Trade-offs of small and obvious costs now vs large potential gains in future
+* __Top-down__ modeling strategy
+    * Complement existing financial stability models/tools
+    * Provide a platform for consistently combining a range of inputs and pieces of analysis, including macro
+    * Aggregative view, not addressing individual financial institutions
+  
+* __Medium-term__ frequency of economic relationships
+    * Time for macro-financial interactions to kick in
+    * Policy trade-offs of small costs now vs large potential gains in the future
 
+* Endogenous __feedback__: macroeconomy $\Longleftrightarrow$ financial sector
+    * ...versus the more common one-way logic: macro $\Longrightarrow$ financial sector
 ---
 
 ### Key modeling principles, cont.
 
-* __Explicit__ description of balance sheets
-  * Gross positions matter, not just net positions
-* __Stock-flow consistency__:
-  * Stocks (wealth, credit stock, assets / liabilities) vs flows (GDP, credit creation, defaults / repayments)
-* Important role of __non-linearities__
-  * Necessary to render macroprudential policy relevant and useful
-  * Important to describe real-world events
+* __Explicit__ modeling of balance sheets
+    * Financial cycles associated with expansions and contractions of gross positions on balance sheets (banks, BOP, etc.)
+	* Correct understanding of how balance sheets work
+  
+* __Stock-flow consistency__
+    * Stocks (wealth, credit stock, assets, liabilities) cumulates from flows (GDP, new credit creation, defaults, repayments)
+
+* Presence of key __non-linearities__
+    * Nonlinearities are the essence of fin stab and macropru analysis
+    * Indispensable in describing real-world events
+    * Critical for macropru policy trade-offs
 
 ---
 
-### Focus on application
+### Designed for practical policy use cases
 
-* MESSr is a __semi-structural__ framework
-* Not DSGE with explicit microdoundations, but
+* __Semi-structural__ framework: Equations not derived from underlying "microfoundations", but still...
   * Explicit concepts of demand and supply (e.g. for credit)
-  * Endogenous expectations (can drive financial cycles)
-* Model __brought to data__, provide data-consistent simulations (as opposed to purely theoretical simulations)
-* __Integration and aggregation__ of several types of risk
-* Flexibility to describe various structures of financial system
-  * Primary focus on banks, but also other intermediaries too
+  * Unobserved sustainability trends (e.g. credit to GDP as in BIS analysis)	
+  * Endogenous expectations (e.g. makes easy to introduce IFRS9 forward-looking allowances)
+
+* __Empirical relevance__, capable of producing data-consistent scenarios (as opposed to only purely theoretical simulations)
+
 
 ---
 
-### Not just a model
+### Examples of practical use cases
 
-* Model itself is not enough
-* Need __infrastructure__ for regular, streamlined production of outputs
-  * Feeding data to the model
-  * Streamlined processing of macro inputs
-  * Reporting, communication of results
-* Ability to build __scenarios__ on top of (externally provided) baseline
-* Motivated by experience from and focus on practical applications
+* Build __scenarios__ on top of (externally provided) baselines (so-called Delta technique) 
 
----
+* Simulate the entire __macrofinancial cycles__ , e.g.
+    * Boom and bust in asset prices and credit growth
+    * Capital inflows and reversals
 
-### Differences from other macroprudential frameworks
+* Conceptualize the __costs and benefits__ of macropru policies
 
-* There is **no endogenous** macroprudential policy reaction function
-	* But we can analyze a range of policy interventions, incl. capital buffers, LTVs, credit caps, ...
-* No detailed description of individual banks
-* Focus on **scenario analysis**, not forecasting
-* Focus on **robust policy** vs optimal policy
-
+* Endogenously __integrate and aggregate__ main financial risks, e.g.
+    * Integrate credit, forex, market risk based on structural macro drivers
+    * Aggregate credit risk across economic sectors
 
 
 ---
@@ -184,43 +198,65 @@ April 2022
 
 ---
 
-### Banking sector balance sheet
+### Simplified aggregate bank balance sheets
 
 |                   | Assets                         |            Liabilities |                   |
 | :---------------- | :----------------------------- | ---------------------: | ----------------: |
 | $\xle$              | Net loans                      | Non-equity liabilities |               $\xd$ |
-| $+\ \sum \xl^{\,k}$ | *Gross loans*                  |       *Local currency* |  $d_t^{\,\xlcy}\ +$ |
-| $-\ \sum \xall^k$  | *Allowances for credit losses* |     *Foreign currency* | $d_t^{\,\xfcy} \ +$ |
+| $+\ \sum \xl^{\,k}$ | *Gross loans*                  |       *Local currency* |  $+\ d_t^{\,\xlcy}$ |
+| $-\ \sum \xall^k$  | *Allowances for credit losses* |     *Foreign currency* | $+\ d_t^{\,\xfcy}$ |
 | $\xona$             | Other net assets               |           Bank capital |                $bk$ |
 
-* We allow for:
-  * Loan portfolio segmentation (mortgages, consumer credit, ...)
-  * Currency segmentation (local vs foreign currency denominated loans)
+<br/>
+
+Accommodates
+* Loan portfolio segmentation (mortgages, consumer credit, ...)
+* Currency segmentation (local vs foreign currency assets and liabs)
+
 
 ---
 
 ### Proper balance sheet accounting
 
-* For each loan segment, the model keeps track of performing loans, non-performing loans, allowances...
+For each loan (asset) segment, keep track of loan (asset) performance:
 
-**Simplified life cycle of a representative loan**
+* Performing exposures
+* Nonperforming exposures
+* Defaults
+* Allowances (provisions) 
+* Writeoffs
+* Interest income, interest expense
+
+---
+
+### Simplified life cycle of a representative loan portfolio
 
 ![credit-risk-loan-performance](credit-risk-loan-performance.png)
 
 ---
 
-### Explicit modeling of bank capital, P&L
+### Bank profits and bank capital
 
 ![bank-capital|750](bank-capital.png)
 
 ---
 
-### Forward-looking creation of allowances
+### Allowances for credit losses (provisions)
 
-* New allowances (provisions) are created based on expected (forward-looking) loss
-* We can also model provisions based on incurred (backward-looking) loss
+* Credit risk is the key element of financial risks on bank balance sheets
 
-**Dynamics of allowances**
+* Allowances (provisions) for credit risk now based on one of two concepts
+
+	* Incurred loss based (backward looking)
+	* Expected loss based (forward looking, IFRS9)
+
+* Mixed use in financial reporting and regulatory standards
+
+* MESSr easily accommodates either or both
+
+---
+
+### Dynamics of forward-looking (IRS9) allowances
 
 ![allowances-stock-flow](allowances-stock-flow.png)
 
@@ -232,7 +268,7 @@ __Reduced-form approach__: Provides little insight into demand and supply
 
 ![Reduced form credit creation|600](reduced-form-credit-creation.png)
 
-__Our approach__: Motivated by insights from DSGE models.
+__Semi-structural approach__: Motivated by insights from DSGE models.
 
 
 ![Semistructural credit creation|750](structural-credit-creation.png)
@@ -261,12 +297,12 @@ __Our approach__: Motivated by insights from DSGE models.
 
 ### Key nonlinearity 1: Credit risk function
 
-* Link of credit risk to macro conditions <mark>Single factor somethign BASEL?</mark> is non-linear
+Conceptually consistent with Basel II/III asymptotic single-factor risk model
 
 ![image-20220423233150331](image-20220423233150331.png)
 
 ---
 
-### Key nonlinearity 2: Capital risk surcharge
+### Key nonlinearity 2: Capital adequacy risk surcharge
 
 ![image-20220423234123581](image-20220423234123581.png)
