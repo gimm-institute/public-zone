@@ -29,9 +29,9 @@
 
 <br/>
 
-Scenario | Credit to GDP 
----|---:
-Harmless | –5pp 
-Severe | –10pp
+Scenario    | Credit to GDP 
+------------|------:
+Harmless    |  –5pp 
+Severe      | –10pp
 Devastating | –20pp
 

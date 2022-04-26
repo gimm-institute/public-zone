@@ -58,6 +58,7 @@
     !shocks 
 
         "Shock to inverse velocity of new loans, ?s" shock_ivy_?s
+        "Shock to trend in inverse velocity of new loans, ?s" shock_ivy_tnd_?s
         "Shock to new loans, ?s" shock_new_l_?s
         "Shock to gross loans to GDP ratio trend, ?s" shock_l_to_4ny_tnd_?s
 
@@ -120,6 +121,7 @@
         ivy_tnd_?s = ...
             + c0_ivy_tnd_?s * ivy_tnd_?s{-1} ...
             + (1 - c0_ivy_tnd_?s) * &ivy_tnd_?s ...
+            + shock_ivy_tnd_?s ...
         !! ivy_tnd_?s = (4 * l_to_4ny_?s) * new_l_?s / l_?s;
 
 

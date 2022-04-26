@@ -1,0 +1,20 @@
+
+
+.callout[data-callout="macroprudential"] {
+        --callout-color: 255, 215, 0;
+        --callout-icon: lucide-info;
+        width: 49%;
+        float: left;
+}
+
+.callout[data-callout="monetary"] {
+        --callout-color: 0, 184, 212;
+        --callout-icon: lucide-info;
+        width: 49%;
+        float: right;
+}
+
+.callout-icon {
+    display: none;
+}
+

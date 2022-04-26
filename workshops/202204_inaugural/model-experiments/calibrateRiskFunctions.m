@@ -31,7 +31,7 @@ ylabel("Impact on credit conditions [% PA]");
 
 % print -dpng car-function
 
-return
+
 %% Credit risk
 
 z = linspace(-0.10, 0.10, 500);

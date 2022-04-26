@@ -233,13 +233,19 @@ body {
 }
 
 .markdown-preview-view div > ul > li, 
-.reveal section > ul > li {
-    margin-top: 1.5em;
+.reveal ul > li {
+    margin-top: 0.75em;
+    margin-bottom: 0.75em;
 }
 
 .markdown-preview-view div > ul > li li,
-.reveal section > ul > li li {
-    margin-top: 0.5em;
+.reveal ul > li li {
+    margin-top: 0.25em;
+    margin-bottom: 0.25em;
+}
+
+.callout-content ul {
+    margin-left: 0px;
 }
 
 .markdown-preview-view li > ul,
