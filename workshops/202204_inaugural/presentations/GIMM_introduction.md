@@ -1,5 +1,5 @@
 
-# Introducing MESSr:  the GIMM Macroprudential Modeling Framework
+# Introducing MESSr:  GIMM Macroprudential Modeling Framework
 
 $$
 \newcommand{\xona}[1][t]{{ona}_{#1}}
@@ -96,7 +96,7 @@ April 2022
 ### Overview
 
 
-* Speaker presentations followed by model-based experiments
+* Speaker presentations followed by model-based simulations and demonstrations
 
 * This presentation introduces MESSr, the GIMM modeling framework 
 
@@ -110,9 +110,9 @@ April 2022
 * The outcome of several __applied projects__ in macroprudential modeling
 	* A large numer of extensions emerged motivated by diverse economies and financial systems 
 
-* __Practical scenario production and policy advice__ framework, not a theoretical model
+* __Practical scenario production and policy advice__ framework, not just a theoretical model
     * Flexible semi-structural approach combining theory insights and empirical relevance
-    * Incorporates insights from more structural models, including DSGEs (e.g. MAPMOD)
+    * Incorporates insights from more structural models, including DSGEs
 
 * __Continuous development__ responding to our technical cooperation projects
 
@@ -211,7 +211,7 @@ April 2022
 
 Accommodates
 * Loan portfolio segmentation (mortgages, consumer credit, ...)
-* Currency segmentation (local vs foreign currency assets and liabs)
+* Currency segmentation (local vs foreign currency assets and liabilities)
 
 
 ---
