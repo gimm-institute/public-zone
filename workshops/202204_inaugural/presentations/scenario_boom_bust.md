@@ -59,7 +59,8 @@ April 2022
 	* But costs in terms of lost output are limited, economy operates above equilibrium anyway
 * **Release of buffers** in bust phase
 	* Improves bank capital position relative to effective regulatory minimum
-	* Supports credit creation and growth	
+	* Prevents banks from tightening lending conditions and shrinking their balance sheets 
+	* Supports credit creation and growth		
 * The policy smoothes financial cycle, resulting in smoother business cycle
 	* Benefits far outweigh the costs incurred in the boom phase
 * The role of **nonlinearities** is again crucial
@@ -74,8 +75,13 @@ April 2022
 
 ---
 
-### Bubble, or not?
+### Bubble, or not? US house prices 1990-2022
 ![[us_house_prices.png]]
+
+
+---
+### Bubble, or not? Irish house prices 2007-2022
+![[irish_house_prices.png]]
 
 
 ---
