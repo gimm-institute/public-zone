@@ -12,19 +12,19 @@ April 2022
 
 ### Modeling at policy making institutions
 
-* Both monetary and macroprudential frameworks/processes used at policy making institutions benefit greatly from a central ("core") model
+* Both monetary and macroprudential frameworks/processes used at policy making institutions benefit greatly from a **core** model
 
 * A core model ties up a large number of disaggregative and partial inputs/results/assumptions/judgmental calls with some consistency
 
-* This presentation is about differences in modeling philosophy at the level of such core models
+* This presentation is about differences in modeling philosophy for building and operating core models
 
 ---
 
 ### Financial cycles
 
 > [!Macroprudential] Finstab & macropru
-> * Longer periodicities
-> * Often asymmetric (crash or soft landing)
+> * **Longer** periodicities
+> * Often **asymmetric** (crash or soft landing)
 
 > [!Monetary]
 > * Shorter periodicities
@@ -41,7 +41,7 @@ April 2022
 > * Far away from "steady state"
 
 > [!Monetary]
-> * **Most likely** forecasts (baseline)
+> * Most likely forecasts (baseline)
 > * Specific alternative scenarios
 > * Within a neighborhood of "steady state"
 
@@ -68,13 +68,16 @@ April 2022
 
 > [!Macroprudential] Finstab & macropru
 > * Nonlinearities **essential**...
-> * ...and the nonlinearities are global
+> * ...and the nonlinearities are **global**
 > * Examples: binding financial constraints, marginal borrowers, etc.
 
 > [!Monetary]
+>
 > * Although nonlinearities exist...
-> * ...regular analysis is fine **linearized**
+>  ...regular analysis is fine **linearized**
+>
 > * Examples: Endogenous credibility, asymmetric nominal rigidities, etc.
+>
 
 ---
 
@@ -89,10 +92,14 @@ April 2022
 >
 > * Recommendation: Do not bother pretending they are accurate
 >
+> * Use extensively **smell tests**
+> 
+
 
 > [!Monetary]
 >
-> * Estimating linearized models (while still challenging) yields much **more trustable**  results
+>  Estimating linearized models (while still challenging) yields **relatively more trustable** results
+>
 > * Monetary policy modeling can then have the flavor of forecasting
 >
 
@@ -123,8 +130,10 @@ April 2022
 
 > [!Macroprudential] Finstab & macropru
 > * Large amounts of accounting/reporting/regulatory **specifics**
+>
 > * Need to be incorporated within the models to correctly intepret data
-	
+>
+
 > [!Monetary]
 > * Macro concepts more **universal** across countries and time
 
@@ -162,9 +171,9 @@ April 2022
 > * Build-release based policies
 > 
 
+
 > [!Monetary]
 >
 > * The essence of monetary policy can be translated to a **simple reaction function**
 >
-
 

@@ -142,3 +142,7 @@ ch < "Writeoffs to gross loans // Pp deviations: ^100*woff_to_l_hh";
 
 info = draw(ch, smc);
 
+
+%% Save results to MAT file for further use
+
+save mat/simulateBoomBust.mat m d d1 d2 d3 d4 s1 s2 s3 s4 s smc T

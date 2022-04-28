@@ -1,7 +1,7 @@
-%% MESSr-NBU: Macro module 
+%% MESSr: Macro module 
 
 
-!variables
+!variables(:macro)
 
 pa, bubble
 
@@ -51,7 +51,7 @@ pa, bubble
     r, rr, r_tnd, rr_tnd, rr_gap, prem, prem_tnd, prem_gap
 
 
-!parameters
+!parameters(:macro)
 
 c0_bubble
 
@@ -99,7 +99,7 @@ c0_bubble
     "floor to the policy rate" r_floor
 
 
-!shocks
+!shocks(:macro)
 
 shock_bubble
 
@@ -130,7 +130,8 @@ shock_bubble
     ss_roc_e := (ss_roc_re * ss_roc_cpi / ss_roc_cpiw);
 
 
-!equations
+!equations(:macro)
+
 
 % GDP
 

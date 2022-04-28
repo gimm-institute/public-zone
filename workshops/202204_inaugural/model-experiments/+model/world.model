@@ -1,7 +1,7 @@
 %% MESSr-NBU: Rest of world macro module 
 
 
-!variables
+!variables(:world)
 
     "Foreign demand gap" yw_gap
     "Foreign short-term rate, FCY" rw
@@ -15,7 +15,7 @@
     rw, rrw_tnd
 
 
-!parameters
+!parameters(:world)
 
     % Directly calibrate steady state properties
 
@@ -31,7 +31,7 @@
     "Autoregression in foreign CPI inflation" c0_roc_cpiw
 
 
-!shocks
+!shocks(:world)
 
     "Tune on foreign demand gap" tune_yw_gap
     "Tune on foreign short-term rate" tune_rw
@@ -49,7 +49,7 @@
     ss_rw := ((1 + ss_rrw) * ss_roc_cpiw - 1);
 
 
-!equations
+!equations(:world)
 
     "Foreign demand gap"
     log(yw_gap) = ...
