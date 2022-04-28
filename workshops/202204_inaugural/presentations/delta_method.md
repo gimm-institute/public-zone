@@ -15,9 +15,9 @@ April 2022
 
 * Simple method to create model-based scenarios on top of (derive from) a baseline input scenario
 
-* The input scenario may be (and usually is) "incomplete": describing only a subset of variables: e.g. macro
+* The input scenario may be (and usually is) "incomplete": describing only a subset of variables (e.g. macro)
 
-* The derived model-based scenario is derived from the input scenario but does not keep the input variables fixed: all respond endogenously to extra assumptions
+* The model-based scenario is derived from the input scenario but does not keep the input variables fixed: all respond endogenously to extra assumptions
 
 
 ---
