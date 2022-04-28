@@ -13,19 +13,32 @@ April 2022
 
 ### Introduction
 
+* Simple method to create model-based scenarios on top of (derive from) a baseline input scenario
 
-* Simple method to create model-based scenarios on top of a baseline input scenario
+* The input scenario may be (and usually is) "incomplete": describing only a subset of variables: e.g. macro
+
+* The derived model-based scenario is derived from the input scenario but does not keep the input variables fixed: all respond endogenously to extra assumptions
+
+
+---
+
+### Use cases
+
 * Conceptually and technically simple, but with wide applications:
+
 	* Building scenarios on top of external macro forecast 
 	* Analysis of policy interventions - past and future
 	* Top-down stress tests 
 	* Complement to existing stress-testing frameworks, e.g. EU-wide stress tests
+	
 * We can impose all kinds of additional assumptions on top of external baseline scenario:
+
 	* Credit risk: varying assumptions about asset performance
 	* Market risk: varying 
 	* Other kinds of risk: operational risk, ...
 
 ---
+
 ### Inputs
 
 * Baseline scenario from external source
@@ -34,7 +47,9 @@ April 2022
 	* Typical example: baseline macroeconomic forecast
 * Data on current position of the economy and financial sector
 * The model
+
 ---
+
 ### Conceptual explanation
 * Adopt the baseline scenario from an external source as a starting point
 * Reproduce the baseline scenario by a so-called model inversion
@@ -42,7 +57,6 @@ April 2022
 	* As a by-product, we obtain projection for all variables in our model, incl. those variables which are not in the baseline scenario itself
 * Add your own additional assumptions (shocks)
 * Obtain new scenario which is based on the baseline scenario + the impact of the additional assumption
-
 
 
 ---
@@ -103,3 +117,33 @@ $$
 ---
 
 ### Example applications: EU-wide stress-testing
+
+![EBA|700](assets/eba-design.png)
+
+
+--- 
+
+### Traditional stress testing vs Macro stress testing and macropru policy
+
+* Bottom up vs Top down
+
+* Static pool vs Dynamic pool vs Behavioral
+
+* Exogenous vs endogenous expectations
+
+* No feedback (macro given) vs Feedback  
+
+---
+
+### Static balance sheets
+
+![|750](assets/eba-cutout-1.jpg) ![|750](assets/eba-cutout-2.jpg)
+
+---
+
+### Exogenous expectations
+
+![|750](assets/eba-cutout-3.jpg) ![|750](assets/eba-cutout-4.jpg)
+
+
+
