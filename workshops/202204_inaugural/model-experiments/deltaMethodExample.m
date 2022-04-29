@@ -153,3 +153,51 @@ smc4 = databank.minusControl(m, s, d);
 % show the results
 ch.FigureExtras = { @(h) set(visual.hlegend("bottom", "Input scenario interpreted","2pp lower return on non-loan assets"), "fontSize", 20) };
 draw(ch, smc4);
+
+%% Fifth simulation - 3pp rate hike
+
+% create new database of initial conditions
+d5 = d;
+
+% Add shocks identified in the first simulation to the input database
+d5.shock_y_gap = s1.shock_y_gap;
+
+% Add shock to lower return on other assets by 2pp for one year
+d5.shock_r(15) = 3/400*1i;
+
+s5 = simulate( ...
+    m, d5, 1:40 ...
+    , 'prependInput', true ...
+    , 'method', "stacked" ...
+);
+
+s    = databank.merge("horzcat", s1, s5);
+smc5 = databank.minusControl(m, s, d);
+
+% show the results
+ch.FigureExtras = { @(h) set(visual.hlegend("bottom", "Input scenario interpreted","3pp rate hike"), "fontSize", 20) };
+draw(ch, smc5);
+
+%% Sixth simulation - lower default rates by 0.5pp for extended period of time
+
+% create new database of initial conditions
+d6 = d;
+
+% Add shocks identified in the first simulation to the input database
+d6.shock_y_gap = s1.shock_y_gap;
+
+% Add shock to lower default rates by 0.25pp for extended period of time
+d6.shock_q(15:30) = -0.25/100*1i;
+
+s6 = simulate( ...
+    m, d6, 1:40 ...
+    , 'prependInput', true ...
+    , 'method', "stacked" ...
+);
+
+s    = databank.merge("horzcat", s1, s6);
+smc6 = databank.minusControl(m, s, d);
+
+% show the results
+ch.FigureExtras = { @(h) set(visual.hlegend("bottom", "Input scenario interpreted","Prolonged 0.25pp lower default rates"), "fontSize", 20) };
+draw(ch, smc6);
