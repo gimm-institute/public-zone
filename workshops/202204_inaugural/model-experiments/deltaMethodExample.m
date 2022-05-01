@@ -24,7 +24,6 @@ ch.Transform = @(x) 100*(x-1);
 
 
 ch < "GDP gap // Pct level deviations: ^100*(y_gap-1)";
-% ch < "Short-term policy rate // Pp deviations: ^400*r";
 ch < "Credit to GDP ratio // Pp deviations: ^100*l_to_4ny_hh";
 ch < "New real credit // Pct level deviations: new_l_hh/cpi";
 ch < "Portfolio defaults // Pp deviations: ^100*q_hh";
