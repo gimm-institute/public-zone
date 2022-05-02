@@ -24,7 +24,7 @@ April 2022
 
 > [!Macroprudential] Finstab & macropru
 > * **Longer** periodicities
-> * Often **asymmetric** (crash or soft landing)
+> * Often **asymmetric** 
 
 > [!Monetary]
 > * Shorter periodicities
@@ -36,16 +36,17 @@ April 2022
 ### Model output sought
 
 > [!Macroprudential] Finstab & macropru
+>
 > * **Unlikely yet plausible** events
 > * Entire financial cycles
 > * Far away from "steady state"
 
 > [!Monetary]
+>
 > * Most likely forecasts (baseline)
 > * Specific alternative scenarios
 > * Within a neighborhood of "steady state"
 
-[Scenarios-forecasts|650](assets/forecasts.png)
 
 ---
 
@@ -87,10 +88,11 @@ April 2022
 >
 > * Estimating models with nonlinearities and stock-flow relationships is drastically more complicated
 >
-> * We need much larger numbers of data points to make the estimates reliable, but have very limited amount of them available
+> * We need much larger numbers of data points, but have very limited amount of them available
+>
 > * **Gigantic uncertainty** in the "accuracy" of model mechanisms...
 >
-> * Recommendation: Do not bother pretending they are accurate
+> * Do not bother pretending they are accurate
 >
 > * Use extensively **smell tests**
 > 
@@ -98,7 +100,7 @@ April 2022
 
 > [!Monetary]
 >
->  Estimating linearized models (while still challenging) yields **relatively more trustable** results
+> * Estimating linearized models (while still challenging) yields **relatively more trustable** results
 >
 > * Monetary policy modeling can then have the flavor of forecasting
 >
@@ -129,12 +131,14 @@ April 2022
 ### Idiosyncracies
 
 > [!Macroprudential] Finstab & macropru
+>
 > * Large amounts of accounting/reporting/regulatory **specifics**
 >
 > * Need to be incorporated within the models to correctly intepret data
 >
 
 > [!Monetary]
+>
 > * Macro concepts more **universal** across countries and time
 
 

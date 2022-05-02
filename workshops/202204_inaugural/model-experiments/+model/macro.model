@@ -1,16 +1,20 @@
-%% MESSr: Macro module 
+%% MESSr: Macro module
 
 
 !variables(:macro)
 
-pa, bubble
+    "Stress scenario factor" x
+
+    "Actual real market valuation of assets" mv
+    "Actual real market valuation of assets, Rate of change" roc_mv
+    "Bubble in market valuation of assets" bubble
 
     "Real GDP" y
     "Nominal GDP" ny
     "GDP deflator" py
     "Real GDP, Rate of change" roc_y
     "Real GDP,  Four-quarter rate of change" roc4_y
-    
+
     "Nominal GDP, Rate of change" roc_ny
     "GDP deflator, Rate of change" roc_py
     "GDP gap" y_gap
@@ -43,17 +47,21 @@ pa, bubble
     "Interest disparity trend" prem_tnd
     "Interest disparity gap" prem_gap
     "Short-term cash rate, unconstrained" r_uc
-    
+
 
 
 !log-variables !all-but
 
-    r, rr, r_tnd, rr_tnd, rr_gap, prem, prem_tnd, prem_gap
+    x, r, rr, r_tnd, rr_tnd, rr_gap
+    prem, prem_tnd, prem_gap
+
+
+!parameters(:stress)
+
+    cx_y_gap, cx_roc_y_tnd, cx_bubble, cx_roc_cpi, cx_roc_cpi_exp, cx_e
 
 
 !parameters(:macro)
-
-c0_bubble
 
     % Directly calibrated steady-state properties
     "S/S Real GDP, Rate of change" ss_roc_y
@@ -63,7 +71,7 @@ c0_bubble
     "S/S Discount rate in future income proxy" ss_disc_fws_y
 
     % Dynamic parameters
-    "Autoregression in GDP Gap" c0_y_gap
+    "A/R GDP Gap" c0_y_gap
     "Response in GDP gap to future income proxy" c1_y_gap
     "Response i nGDP gap to real short-term rate" c2_y_gap
     "Response in GDP gap to new lending conditions" c3_y_gap
@@ -72,36 +80,39 @@ c0_bubble
 
     "Sensitivity of discount rate in future income proxy to lending conditions" c1_fws_y
 
-    "Autoregression in real GDP trend" c0_roc_y_tnd
+    "A/R Real GDP trend" c0_roc_y_tnd
     "Hysteresis in real GDP trend" c1_roc_y_tnd
 
-    "Autoregression in CPI inflation" c0_roc_cpi
+    "A/R CPI inflation" c0_roc_cpi
     "Response in CPI inflation to GDP gap" c1_roc_cpi
     "Response in CPI inflation to RER gap" c2_roc_cpi
     "Response in CPI inflation to RER gap change" c3_roc_cpi
 
     "Weight on model-consistent expectations in inflation expectations" c1_roc_cpi_exp
 
-    "Autoregression in short-term rate" c0_r
+    "A/R Short-term rate" c0_r
     "Response in short-term rate to inflation" c1_r
     "Response in short-term rate to GDP gap" c2_r
     "Response in short-term rate to FX gap" c3_r
 
-    "Autoregression in real short-term rate trend" c0_rr_tnd
+    "A/R Real short-term rate trend" c0_rr_tnd
 
     "Weight on model-consistent expectations in exchange rate expectations" c1_e_exp
     "Response in interest disparity to lending conditions" c1_prem
-    "Autoregression in autonomous cyclical component in interest disparity" c0_prem_gap
+    "A/R Autonomous cyclical component in interest disparity" c0_prem_gap
 
-    "Autoregression in real exchange rate trend" c0_roc_re_tnd
+    "A/R Real exchange rate trend" c0_roc_re_tnd
     "Response in real exchange rate trend to real exchange rate gap" c1_roc_re_tnd
 
-    "floor to the policy rate" r_floor
+    "A/R Stress scenario factor" c0_x
+    "A/R Bubble in market valuation of assets" c0_bubble
+
+    "Floor for the policy rate" r_floor
 
 
 !shocks(:macro)
 
-shock_bubble
+    "Shock to bubble in market valuation of assets" shock_bubble
 
     "Tunes on GDP gap" tune_y_gap
     "Tune on GDP trend growth" tune_roc_y_tnd
@@ -121,7 +132,12 @@ shock_bubble
     "Shock to real exchange rate trend" shock_roc_re_tnd
     "Shock to autonomous cyclical component in interest disparity" shock_prem_gap
     "Shock to real short-term rate trend" shock_rr_tnd
-    
+
+
+!shocks(:stress)
+
+    "Shock to stress scenario factor" shock_x
+    "Shock to A/R stress scenario factor" shock_c0_x
 
 
 !substitutions
@@ -142,7 +158,7 @@ shock_bubble
     log(y_gap) ...
         = c0_y_gap * log(y_gap{-1}) ...
         ... + c1_y_gap * log(fws_y/y) ...
-        + c1_y_gap * log(pa/y) ...
+        + c1_y_gap * log(mv/y) ...
         - c2_y_gap * 4*rr_gap ...
         - c3_y_gap * 4*new_rl_full_spread_gap ...
         + c4_y_gap * log(re_gap{-1}) ...
@@ -150,6 +166,7 @@ shock_bubble
         + c2_y_gap * (r_uc-r) ...
         + shock_y_gap ...
         + tune_y_gap ...
+        - cx_y_gap * x ...
     !! y_gap = 1;
 
     "GDP trend (potential GDP) assumptions"
@@ -159,6 +176,7 @@ shock_bubble
         + c1_roc_y_tnd * log(y_gap) ...
         + shock_roc_y_tnd ...
         + tune_roc_y_tnd ...
+        - cx_roc_y_tnd * x ...
     !! roc_y_tnd = ss_roc_y;
 
     "GDP deflator assumptions"
@@ -177,12 +195,15 @@ shock_bubble
         + 1/(1 + ss_disc_fws_y + c1_fws_y*new_rl_full_spread_gap) * fws_y{+1}/ss_roc_y ...
     !! fws_y = y;
 
-% Proxy for the actual value of asset prices
+% Proxy for the actual market valuation of assets
 
-    pa = fws_y * bubble ...
-    !! pa = fws_y;
+    mv = fws_y * bubble ...
+    !! mv = fws_y;
 
-    log(bubble) = c0_bubble * log(bubble{-1}) + shock_bubble ...
+    log(bubble) = ...
+        + c0_bubble * log(bubble{-1}) ...
+        + shock_bubble ...
+        - cx_bubble * x ...
     !! bubble = 1;
 
 
@@ -198,12 +219,15 @@ shock_bubble
         + c3_roc_cpi * log(roc_re_gap) ...
         + shock_roc_cpi ...
         + tune_roc_cpi ...
+        + cx_roc_cpi * x ...
     !! roc_cpi = ss_roc_cpi;
+
 
     "Inflation expectations"
     log(roc_cpi_exp) ...
         = c1_roc_cpi_exp * log(roc_cpi{+1}) ...
         + (1 - c1_roc_cpi_exp) * log(ss_roc_cpi) ...
+        + cx_roc_cpi_exp * x ...
     !! roc_cpi_exp = ss_roc_cpi;
 
 
@@ -211,8 +235,8 @@ shock_bubble
 
     "Monetary policy reaction function"
     r = 0.1*r_uc + (1-0.1)*max(r_uc, r_floor)
-    !! r = r_uc; 
-    
+    !! r = r_uc;
+
     r_uc = ...
         + c0_r * r{-1} ...
         + (1 - c0_r) * [ ...
@@ -245,7 +269,7 @@ shock_bubble
 % Exchange Rate
 
     "Uncovered interest parity"
-    (1 + r) = (1 + rw) * e_exp/e * (1 + prem) * exp(shock_e) ...
+    (1 + r) = (1 + rw) * e_exp/e * (1 + prem) * exp(shock_e + cx_e * x) ...
     !! roc_e = $ss_roc_e$;
 
 
@@ -297,7 +321,7 @@ shock_bubble
 
 % Rates of change
 
-    !for ny, y, y_tnd, e, py, cpi, re_tnd, re_gap !do
+    !for ny, y, y_tnd, e, py, cpi, re_tnd, re_gap, mv !do
         roc_? = ? / ?{-1};
     !end
 
@@ -307,6 +331,14 @@ shock_bubble
     !for cpi y !do
         roc4_? = ? / ?{-4};
     !end
+
+
+% Stress scenario factor
+
+    x = ...
+        + (c0_x + shock_c0_x) * x{-1} ...
+        + shock_x ...
+    !! x = 0;
 
 
 !autoswaps-simulate

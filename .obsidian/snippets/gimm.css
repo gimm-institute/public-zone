@@ -1,13 +1,17 @@
 
 body {
     --text-title-h1: #4a4a4a;
+    --font-family-normal: "Libre Baskerville";
+    --font-weight-normal: 100;
+    --font-family-headline: "Libre Baskerville";
     --font-interface: "Inter";
-    --font-preview: "Baskerville", "Libre Baskerville";
-    --font-outline: "Open Sans";
-    --font-text: "Open Sans";
+    --font-preview: var(--font-family-normal);
+    --font-outline: var(--font-family-normal);
+    --font-text: var(--font-family-normal);
     --color-collapser: #ffd700;
     --color-muted: #aaaaaa;
-    --reveal-font: "Baskerville", "Libre Baskerville";
+    --reveal-font: var(--font-family-normal);
+    --reveal-headline-font: var(--font-family-headline);
     --reveal-text-normal: #4a4a4a;
     --reveal-quote-border: #aaaaaa;
     --color-text: #4a4a4a;
@@ -74,6 +78,7 @@ body {
 
 .markdown-preview-view {
     font-size: 20px;
+    font-weight: var(--font-weight-normal);
 }
 
 .markdown-preview-view .collapse-indicator {
@@ -95,6 +100,7 @@ body {
 .markdown-preview-view h1, 
 .markdown-preview-view h2,
 .markdown-preview-view h3 {
+    font-family: var(--font-family-headline) !important;
     color: var(--color-text);
 }
 
@@ -162,6 +168,14 @@ body {
 
 /********** .reveal **********/
 
+.reveal {
+    font-family: var(--font-family-normal);
+    font-weight: var(--font-weight-normal);
+}
+
+.reveal h1, .reveal h2, .reveal h3, .reveal  h4 {
+    font-family: var(--reveal-headline-font);
+}
 
 .reveal h1 {
     color: var(--text-title-h1);
@@ -244,6 +258,11 @@ body {
     margin-bottom: 0.25em;
 }
 
+.callout-title {
+    font-family: var(--font-family-headline);
+    font-size: 28px;
+}
+
 .callout-content ul {
     margin-left: 0px;
 }
@@ -261,5 +280,27 @@ body {
 .markdown-rendered.show-indentation-guide li > ol::before,
 .markdown-rendered.show-indentation-guide li > ul::before {
     content: none;
+}
+
+
+/********** .callout **********/
+
+
+.callout[data-callout="macroprudential"] {
+        --callout-color: 255, 215, 0;
+        --callout-icon: lucide-info;
+        width: 49%;
+        float: left;
+}
+
+.callout[data-callout="monetary"] {
+        --callout-color: 0, 184, 212;
+        --callout-icon: lucide-info;
+        width: 49%;
+        float: right;
+}
+
+.callout-icon {
+    display: none;
 }
 

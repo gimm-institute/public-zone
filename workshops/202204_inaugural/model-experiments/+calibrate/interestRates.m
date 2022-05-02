@@ -1,5 +1,10 @@
 function x = interestRates(x)
 
+x.c1_rona = 0;
+x.ss_cap_hh = 2;
+x.c1_new_rl_full_hh = 0;
+x.c1_new_rl_cap_hh = 20;
+
 x.psi_rl_hh = 0.15;
 x.psi_rl_nfc = 0.15;
 

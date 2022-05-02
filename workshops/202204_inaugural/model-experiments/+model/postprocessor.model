@@ -1,4 +1,4 @@
-%% MESSr-NBU: Postprocessing equations 
+%% MESSr: Postprocessing equations 
 %
 % These equations are technically not part of the model (are not simulated
 % with the model) but can be stored within the model object for

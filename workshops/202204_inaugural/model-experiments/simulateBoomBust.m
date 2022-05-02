@@ -122,7 +122,7 @@ ch < "GDP gap // Pct level deviations: ^100*(y_gap-1)";
 % ch < "Nominal exchange rate // Pct level deviations: e";
 ch < "Credit to GDP ratio // Pp deviations: ^100*l_to_4ny_hh";
 ch < "New real credit // Pct level deviations: new_l_hh/cpi";
-ch < "Proxy for asset prices // Pct level deviations: pa";
+ch < "Proxy for asset prices // Pct level deviations: mv";
 % ch < "Future expected disc. GDP sum // Pct level deviations:fws_y";
 
 ch < "//";

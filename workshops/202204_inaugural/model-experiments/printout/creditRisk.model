@@ -1,25 +1,32 @@
-%% MESSr-NBU: Credit risk module 
+%% MESSr: Credit risk module 
 
 
 %% Aggregate 
 
-!variables
+!variables(:creditRisk)
 
-    "Average aggregate portfolio default rates" q<0.0125>
+    "Average aggregate portfolio default rates" q<0.0125+5.78241e-19i>
 
 
 !log_variables !all-but
-    q<0.0125>
 
-!shocks
+    q<0.0125+5.78241e-19i>
+
+
+!shocks(:creditRisk)
 
     "Shocks to Credit Events Impact, Total" shock_q
 
 
-!equations
+!parameters(:stress)
+
+    cx_z<0>
+
+
+!equations(:creditRisk)
 
     "Average aggregate portfolio default rates"
-    q<0.0125> = (!for <segments> !do + q_? * lp_? !end) / lp<2.38942+1.02225i>;
+    q<0.0125+5.78241e-19i> = (!for <segments> !do + q_? * lp_? !end) / lp<2.38942+1.02225i>;
 
 %
 
@@ -28,7 +35,7 @@
 
 !for ? = <segments> !do
 
-    !variables
+    !variables(:creditRisk)
 
         "Credit events, ?" q_?
         "S/S Slope of credit risk function, ?" ss_slope_q_?
@@ -40,12 +47,12 @@
         q_?, ss_slope_q_?, z_?
 
 
-    !shocks
+    !shocks(:creditRisk)
 
         "Shock to credit events, ?" shock_q_?
 
 
-    !parameters
+    !parameters(:creditRisk)
 
         "S/S Portfolio default rate, ?" ss_q_?
 
@@ -57,7 +64,12 @@
         "Composition of macroeconomic conditions index" c1_z_?
 
 
-    !equations
+    !parameters(:stress)
+
+        cx_z_?
+
+
+    !equations(:creditRisk)
 
         "Portfolio default rate function, ?"
         q_? = ...
@@ -74,7 +86,9 @@
         "Macro conditions index, ?"
         z_? = ...
             + c1_z_? * log(y_gap<1+1i>) ...
-            - (1 - c1_z_?) * [ l_?/(4*py<1+1.01227i>*pa<1+1.00985i>) - l_to_4ny_tnd_? ] ...
+            - (1 - c1_z_?) * [ l_?/(4*py<1+1.01227i>*mv<1+1.00985i>) - l_to_4ny_tnd_? ] ...
+            - cx_z<0> * x<0> ...
+            - cx_z_? * x<0> ...
         !! z_? = 0;
 
 !end

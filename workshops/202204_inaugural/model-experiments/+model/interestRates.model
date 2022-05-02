@@ -1,7 +1,7 @@
-%% MESSr-NBU: Interest rate module
+%% MESSr: Interest rate module
 
 
-%% Aggregate 
+%% Aggregate
 
 !variables
 
@@ -12,9 +12,19 @@
     "Stock lending rate" rl
     rona_spread
 
-!parameters
+
+!parameters(:interestRates)
+
     ss_rona_spread
-    
+    c1_rona
+
+
+!parameters(:stress)
+
+    cx_rd, cx_rona
+    cx_new_rl_full, cx_new_rd
+
+
 !log-variables !all_but
 
     rona, rp_lcy, rp_fcy
@@ -42,10 +52,15 @@
 
 
     "Return on other net assets"
-    rona = rp_lcy - rona_spread + shock_rona;
-    
+    rona = ...
+        + rp_lcy - rona_spread ...
+        + c1_rona * (roc_mv - &roc_mv) ...
+        + shock_rona - cx_rona * x;
+
+
     rona_spread = ss_rona_spread + shock_rona_spread ...
     !! rona_spread = ss_rona_spread;
+
 
     "Effective lending conditions spread gap"
     new_rl_full_spread_gap = ...
@@ -58,12 +73,13 @@
 
 
 
-%% Lending rates by loan portfolio segments 
+%% Lending rates by loan portfolio segments
 
 !for ? = <segments> !do
 
     !variables
 
+        new_rl_cap_?, cap_?
         "Stock Lending Rate, ?" rl_?
         "New Lending Rate w Partial Risk Adjustment, ?" new_rl_?
         "New Lending Rate w Full Risk Adjustment, ?" new_rl_full_?
@@ -80,9 +96,14 @@
 
         rl_?, new_rl_?, new_rl_full_?, cost_sr_ecl_?, cost_bk_?, rl_base_?,  rl_apm_?
         new_rl_full_spread_?, new_rl_full_spread_gap_?
+        new_rl_cap_?, cap_?
 
 
-    !parameters
+    !parameters(:interestRates)
+
+        ss_cap_?
+        c1_new_rl_full_?
+        c1_new_rl_cap_?
 
         "S/S Autonomous Profit Margin in Lending Rates, ?" ss_rl_apm_?
 
@@ -91,11 +112,18 @@
         "Partial Risk Adjustment, ?" c1_new_rl_?
         "Elasticity of Profit Margin to CAR" c_rl_apm_?
         c0_rl_apm_?
-       
+
+
+    !parameters(:stress)
+
+        cx_new_rl_full_?
+
+
 
 
     !shocks
 
+        shock_cap_?
         "Shock to Stock Lending Rate, ?" shock_rl_?
         "Shock to New Lending Rate, ?" shock_new_rl_?
         "Shock to New Lending Rate, ?" shock_new_rl_full_?
@@ -122,7 +150,7 @@
         !! rl_? = new_rl_?;
 
 
-%% New lending rates and conditions 
+%% New lending rates and conditions
 
         "Base rate for lending rates, ?"
         rl_base_? =  ...
@@ -153,8 +181,15 @@
 
 
         "New lending rates with full risk adjustment, ?"
-        (1 + new_rl_full_?) = (1 + cost_sr_ecl_?) * (1 + cost_bk_?) * (1 + rl_apm_?);
+        (1 + new_rl_full_?) = ...
+            (1 + cost_sr_ecl_?) * (1 + cost_bk_?) * (1 + rl_apm_?) ...
+            * (1 + cx_new_rl_full * x + cx_new_rl_full_? * x) ...
+            * (1 + c1_new_rl_full_?*new_rl_cap_?);
 
+        new_rl_cap_? = (c1_new_rl_cap_?*max(0, new_l_to_ny_? - cap_?))^2 ...
+        !! new_rl_cap_? = 0;
+
+        cap_? = ss_cap_? + shock_cap_?;
 
         "Actual new lending rates with partial risk, ?"
         new_rl_? = ...
@@ -176,7 +211,7 @@
 !end
 
 
-%% Funding rates by currency of denomination 
+%% Funding rates by currency of denomination
 
 !for ? = lcy, fcy !do
 
@@ -195,6 +230,11 @@
         "S/S Autonomous profit margin in funding rates, ?" ss_rd_apm_?
 
 
+    !parameters(:stress)
+
+        cx_rd_?, cx_new_rd_?
+
+
     !shocks
 
         "Shock to stock funding rate, ?" shock_rd_?
@@ -208,12 +248,14 @@
             + (1 - psi_rd_?) * rd_?{-1} ...
             + psi_rd_? * new_rd_? ...
             + shock_rd_? ...
+            + (cx_rd + cx_rd_?) * x ...
         !! rd_? = new_rd_? ;
 
         "New funding rates, ?"
         new_rd_? = ...
             + rp_? + ss_rd_apm_? ...
             + shock_new_rd_? ...
+            + (cx_new_rd + cx_new_rd_?) * x ...
         !! new_rd_? = rp_? + ss_rd_apm_? ;
 
 !end

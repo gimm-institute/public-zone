@@ -2,6 +2,7 @@ function x = creditCreation(x)
 
 % Directly calibrated steady state values
 
+
 % Transactions parameters
 x.c1_trn_hh = 0.12;
 x.c1_trn_nfc = 0.03; 
@@ -17,6 +18,7 @@ x.c2_ivy_nfc = 0;
 x.c0_ivy_tnd_hh = 0.9;
 x.c0_ivy_tnd_nfc = 0.9;
 
+
 % Gross loans to GDP ratio
 x.ss_l_to_4ny_hh = 0.12;
 x.ss_l_to_4ny_nfc = 0.20;
@@ -28,6 +30,7 @@ x.c1_l_to_4ny_tnd_hh = 0; 0.10; % Must be greater than x
 
 x.c0_l_to_4ny_tnd_nfc = 0.98; 1.05;
 x.c1_l_to_4ny_tnd_nfc = 0; 0.10;
+
 
 %=================================================
 

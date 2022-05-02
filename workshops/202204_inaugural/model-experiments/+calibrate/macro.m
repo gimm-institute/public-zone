@@ -70,6 +70,8 @@ x.c1_prem = 0; 0.5; % Response in interest premium to lending conditions
 x.c0_roc_re_tnd = 0.95; % Autoregression
 x.c1_roc_re_tnd = 0.001; % Error correction response to real exchange rate gap
 
+x.c0_x = 0.8;
+
 %=================================================
 
 x.c0_y_gap = 0.7; % Autoregression

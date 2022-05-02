@@ -1,4 +1,4 @@
-%% MESSr-NBU: Rest of world macro module 
+%% MESSr: Rest of world macro module 
 
 
 !variables(:world)
@@ -31,6 +31,11 @@
     "Autoregression in foreign CPI inflation" c0_roc_cpiw
 
 
+!parameters(:stress)
+
+    cx_yw_gap, cx_rw, cx_roc_cpiw
+
+
 !shocks(:world)
 
     "Tune on foreign demand gap" tune_yw_gap
@@ -56,6 +61,7 @@
         + c0_yw_gap * log(yw_gap{-1}) ...
         + tune_yw_gap ...
         + shock_yw_gap ...
+        - cx_yw_gap * x ...
     !! yw_gap = 1;
 
 
@@ -65,6 +71,7 @@
         + (1 - c0_rw) * $ss_rw$ ...
         + tune_rw ...
         + shock_rw ...
+        + cx_rw * x ...
     !! rw = $ss_rw$;
 
 
@@ -83,6 +90,7 @@
         + (1 - c0_roc_cpiw) * log(ss_roc_cpiw) ...
         + tune_roc_cpiw ...
         + shock_roc_cpiw ...
+        + cx_roc_cpiw * x ...
     !! roc_cpiw = ss_roc_cpiw;
 
     roc_cpiw = cpiw / cpiw{-1};

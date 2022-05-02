@@ -1,4 +1,4 @@
-%% MESSr-NBU: Credit creation module 
+%% MESSr: Credit creation module 
 
 
 %% Aggregate 
@@ -65,10 +65,10 @@
 
     !parameters
 
-        c0_ivy_tnd_?s
+        "A/R Inverse velocity, ?s" c0_ivy_tnd_?s
         "Transactions in assets relative to GDP" c1_trn_?s
         "S/S Gross loans to GDP ratio" ss_l_to_4ny_?s
-        "Autoregression in inverse velocity of new loans, ?s" c0_ivy_?s
+        "A/R Inverse velocity of new loans, ?s" c0_ivy_?s
         "Response in inverse velocity to loans to GDP ratio, ?s" c1_ivy_?s
         "Response in inverse velocity to lending conditions, ?s" c2_ivy_?s
         "Autoregression AR1 in gross loans to GDP ratio trend, ?s" c0_l_to_4ny_tnd_?s
@@ -82,7 +82,7 @@
         "Macroeconomic transactions"
         trn_?s = ...
             + (1 - c1_trn_?s) * py * y ...
-            + c1_trn_?s * py * pa %fws_y ...
+            + c1_trn_?s * py * mv %fws_y ...
         !! trn_?s = py * y;
 
 
@@ -93,7 +93,7 @@
         ivy_?s = ...
             + ivy_tnd_?s ...
             - c1_ivy_?s * [ l_to_4ny_?s - l_to_4ny_tnd_?s ] ...
-            - c2_ivy_?s * new_rl_full_spread_gap_?s ...
+            - c2_ivy_?s * 4 * new_rl_full_spread_gap_?s ...
             + shock_ivy_?s ...
         !! l_to_4ny_?s = ss_l_to_4ny_?s;
 

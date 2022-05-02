@@ -1,4 +1,4 @@
-%% MESSr-NBU: Bank capital module
+%% MESSr: Bank capital module
 
 
 %% Aggregate quantities
@@ -9,7 +9,7 @@
     "Financial bank capital, closing" bk
     "Regulatory capital" bg
     "Return on bank capital" rbk
-    "Standard capital adequacy ratio" car
+    "Standard capital adequacy ratio" car, movavg_car
     "Minimum regulatory car" car_min
     "Comfort level of standard capital adequacy ratio" car_tar
     "Average effective risk weight" riskw
@@ -50,6 +50,11 @@
     "Floor on return on bank capital" floor_rbk
 
 
+!parameters(:stress)
+
+    cx_rbk_x, cx_riskw, cx_car_tar, cx_rx
+
+
 !shocks
 
     "Shock to Return on Bank Capital" shock_rbk
@@ -62,7 +67,7 @@
 
 !log-variables !all-but
 
-    rbk, car, car_min, car_tar, riskw, onfx
+    rbk, car, movavg_car, car_min, car_tar, riskw, onfx
     rx
 
 
@@ -102,7 +107,7 @@
 
 
     % Return on bank capital
-    (rbk - shock_rbk) * bk{-1} = ...
+    (rbk - shock_rbk + cx_rbk_x * x) * bk{-1} = ...
         + $prof_int_loans$...    % Interest income from loans
         + $prof_int_ona$ ...     % Interest income from other net assets (securities)
         + $prof_other$ ...       % Other net income
@@ -111,6 +116,7 @@
         + $prof_int_liab$...     % Interest expense on liabilities
         + $prof_val_liab$...     % Exchange rate valuation of liabilities
     ;
+
 
     % Financial bank capital
     log(bk) = log(bk{-1}) ...
@@ -142,11 +148,12 @@
         = c0_riskw * riskw{-1} ...
         + (1 - c0_riskw) * ss_riskw ...
         + shock_riskw ...
+        + cx_riskw * x ...
     !! riskw = ss_riskw;
 
 
     % Comfort level of standard CAR
-    car_tar = car_min + ss_car_exc;
+    car_tar = car_min + ss_car_exc + cx_car_tar * x;
 
 
     % Regulatory minimum for standard CAR
@@ -159,12 +166,16 @@
 
     % Impact of capital adequacy stress on lending conditions
     "Capital adequacy stress surcharge"
-    rx = glogc1(-(car - car_min), c1_rx, c2_rx, c3_rx, c4_rx, c5_rx);
+    rx = ...
+        + glogc1(-(car - car_min), c1_rx, c2_rx, c3_rx, c4_rx, c5_rx) ...
+        + cx_rx * x;
 
+%% Transformations
+
+    movavg_car = movavg(car, -4);
 
 
 %% Currency of denomination for non-equity liabilities
-
 
 !variables
 

@@ -116,7 +116,7 @@ $$
 
 ---
 
-### Example applications: EU-wide stress-testing
+### Practical application: EU-wide stress-testing
 
 ![EBA|700](assets/eba-design.png)
 

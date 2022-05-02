@@ -55,6 +55,7 @@ p = calibrate.prudentialProvisions(p);
 p = calibrate.financialProvisions(p);
 p = calibrate.interestRates(p);
 p = calibrate.bankCapital(p);
+p = calibrate.stress(p);
 
 m = assign(m, p);
 
