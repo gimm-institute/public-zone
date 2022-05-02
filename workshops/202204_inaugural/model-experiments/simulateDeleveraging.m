@@ -33,8 +33,8 @@ d1 = steadydb(m, -10:40);
 
 s1 = simulate( ...
     m1, d1, 1:40 ...
-    , prependInput=true ...
-    , method="stacked" ...
+    , 'prependInput',true ...
+    , 'method',"stacked" ...
 );
 
 smc1 = databank.minusControl(m1, s1, d1);
@@ -77,7 +77,7 @@ info = draw(ch, smc1);
 for i = 1 : numel(info.FigureHandles)
     figure(i);
     h = visual.hlegend("bottom", "Harmless", "Severe", "Devastating");
-    set(h, fontSize=20);
+    set(h, 'fontSize',20);
 end
 
 
@@ -88,7 +88,7 @@ ch.Range = -8:40;
 ch.Round = 8;
 ch.Tiles = [2, 2];
 ch.PlotSettings = { {"marker"}, {"s"; "s"; "s"; "none"}, "markerSize", 6, {"lineStyle"}, {"-"; "-"; "-"; ":"}};
-ch.AxesExtras = { @(h) xlabel(h, "Quarters"), @(h) ylim(h, "tight"), @(h) visual.highlight(h, 1) };
+ch.AxesExtras = { @(h) xlabel(h, "Quarters"), @(h) ylim(h, "auto"), @(h) visual.highlight(h, 1) };
 
 ch < "Real GDP: y";
 ch < "Nominal GDP: y";
@@ -98,7 +98,7 @@ ch < "Stock lending rates: 400*rl_hh";
 draw(ch, databank.merge("horzcat", s1, d1));
 
 h = visual.hlegend("bottom", "Harmless", "Severe", "Devastating", "Control");
-set(h, fontSize=20);
+set(h, 'fontSize',20);
 
 
 
@@ -115,16 +115,16 @@ for i = 1 : countVariants(m1)
     subplot(2, 2, i);
     hold on
     add = nan(40, i-1);
-    plot([add, 100*s1.z_hh(1:40,i)], [add,100*s1.q_hh(1:40,i)], lineStyle="none", marker="s", markerSize=15, lineWidth=5);
-    plot(100*z, 100*q, color=0.5*[1,1,1], lineWidth=3);
-    xline(0, lineWidth=2, lineStyle=":");
-    set(gca(), yLim=[0, round(100*max(q+0.01),1)], xLim=100*z([1,end]));
+    plot([add, 100*s1.z_hh(1:40,i)], [add,100*s1.q_hh(1:40,i)], 'lineStyle',"none", 'marker',"s", 'markerSize', 15, 'lineWidth',5);
+    plot(100*z, 100*q, 'color',0.5*[1,1,1], 'lineWidth',3);
+    xline(0, 'lineWidth',2, 'lineStyle',":");
+    set(gca(), 'yLim',[0, round(100*max(q+0.01),1)], 'xLim',100*z([1,end]));
     xlabel("Macro conditions index [%]");
     ylabel("Portfolio default rates [%]");
     title(titles(i));
 end
 
-visual.heading("Credit portofolio default function", fontSize=25, fontWeight="bold");
+visual.heading("Credit portofolio default function", 'fontSize',25, 'fontWeight',"bold");
 
 
 
@@ -145,14 +145,14 @@ for i = 1 : countVariants(m1)
     subplot(2, 2, i);
     hold on
     add = nan(40, i-1);
-    plot([add, 100*s1.car(1:40,i)], [add,400*s1.rx(1:40,i)], lineStyle="none", marker="s", markerSize=15, lineWidth=5);
-    plot(100*car, 400*rx, color=0.5*[1,1,1], lineWidth=3);
-    xline(100*x.car, lineWidth=2, lineStyle=":");
-    xline(100*x.car_min, lineWidth=2, lineStyle=":");
-    set(gca(), xLim=100*[min(car), max(car)], yLim=400*[0, max(rx)], fontSize=20);    
+    plot([add, 100*s1.car(1:40,i)], [add,400*s1.rx(1:40,i)], 'lineStyle',"none", 'marker',"s", 'markerSize',15, 'lineWidth',5);
+    plot(100*car, 400*rx, 'color',0.5*[1,1,1], 'lineWidth',3);
+    xline(100*x.car, 'lineWidth',2, 'lineStyle',":");
+    xline(100*x.car_min, 'lineWidth',2, 'lineStyle',":");
+    set(gca(), 'xLim',100*[min(car), max(car)], 'yLim',400*[0, max(rx)], 'fontSize',20);    
     xlabel("Standard capital adequacy ratio [%]");
     ylabel("Impact on credit conditions [% PA]");  
     title(titles(i));
 end
 
-visual.heading("Capital adequacy stress function", fontSize=25, fontWeight="bold");
+visual.heading("Capital adequacy stress function", 'fontSize',25, 'fontWeight',"bold");
