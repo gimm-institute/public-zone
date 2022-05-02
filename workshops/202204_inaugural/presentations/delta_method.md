@@ -34,7 +34,7 @@ April 2022
 * We can impose all kinds of additional assumptions on top of external baseline scenario:
 
 	* Credit risk: varying assumptions about asset performance
-	* Market risk: varying 
+	* Market risk
 	* Other kinds of risk: operational risk, ...
 
 ---
